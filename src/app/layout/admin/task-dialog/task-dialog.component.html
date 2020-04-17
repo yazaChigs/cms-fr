@@ -1,0 +1,111 @@
+
+<table border="0">
+  <tr>
+    <td>Query No. :</td>
+    <td>{{data.value.id}}</td>
+  </tr>
+  <tr>
+    <td>Query Type:</td>
+    <td>{{data.value.queryType}}</td>
+  </tr>
+  <tr>
+    <td>Category:</td>
+    <td>{{data.value.category[0]}}</td>
+  </tr>
+  <tr>
+    <td>Branch:</td>
+    <td>{{data.value.branch.branchName}}</td>
+  </tr>
+  <tr>
+    <td>Stan No.:</td>
+    <td>{{data.value.stanNo}}</td>
+  </tr>
+  <tr>
+    <td>Account No.:</td>
+    <td>{{data.value.accountNumber}}</td>
+  </tr>
+  <tr>
+    <td>Description:</td>
+    <td>{{data.value.description}}</td>
+  </tr>
+  <tr>
+    <td>Query Details:</td>
+    <td>{{data.value.complaintDetails}}</td>
+  </tr>
+  <tr>
+    <td>Date created:</td>
+    <td>{{data.value.dateCreated}}</td>
+  </tr>
+</table>
+
+<form [formGroup]="taskForm">
+  <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
+    <div fxFlex="40%">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Assignee</mat-label>
+        <mat-select placeholder="Assignee" formControlName="assignee" [compareWith]="compareFn"  required>
+          <mat-option *ngFor="let item of users" [value]="item">
+            {{item.firstName}} {{item.lastName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxFlex="20%">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Expected Spent time(h)</mat-label>
+        <input matInput placeholder="Branch Address" formControlName="spentTime" type="number" required>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="container" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px"
+      fxLayoutGap.xs="0">
+      <div fxFlex="25%">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Priority</mat-label>
+          <mat-select placeholder="Priority" formControlName="priority"  >
+            <!-- <mat-option *ngFor="let key of priorityKeys" [value]="priority[key]">
+              {{ priority[key] }}
+            </mat-option> -->
+            <mat-option value="NORMAL">NORMAL</mat-option>
+            <mat-option value="IMMEDIATE">IMMEDIATE</mat-option>
+            <mat-option value="URGENT">URGENT</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex="25%">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Status</mat-label>
+          <mat-select placeholder="Status" formControlName="status"  disabled>
+            <!-- <mat-option *ngFor="let key of statusKeys" [value]="status[key]">
+              {{ status[key] }}
+            </mat-option> -->
+            <mat-option value="WAITING">WAITING</mat-option>
+            <mat-option value="PENDING">PENDING</mat-option>
+            <mat-option value="RESOLVED">RESOLVED</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+  <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
+    <div fxFlex="70%">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Notes</mat-label>
+        <textarea matInput placeholder="Managers Notes" formControlName="managersNotes" ></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+  <!-- <mat-divider insert="true"></mat-divider> -->
+  <!-- branch list -->
+
+    <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
+      <div fxFlex="20%">
+      </div>
+      <div fxFlex="40%">
+        <button *ngIf="task==null" mat-raised-button class="btn-md" [disabled]="!taskForm.valid" color="primary" (click)="submitValues(taskForm.value)">Save</button>&nbsp;
+        <button mat-raised-button  routerLinkActive="router-link-active" (click)="onNoClick()" class="btn-md" color="warn">Cancel</button>
+      </div>
+    </div>
+</form>
+{{taskForm.value | json}}

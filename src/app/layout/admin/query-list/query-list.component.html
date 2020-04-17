@@ -1,0 +1,265 @@
+<div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+  <div fxFlex="85%">
+<mat-card class="card-padding">
+  <mat-toolbar color="accent">
+      <a routerLink="/admin/" mat-icon-button>
+        <mat-icon aria-label="Back">arrow_back</mat-icon>
+    </a>
+    <span class="fill-remaining-space"></span>
+      <span>All Queries</span>
+    <span class="fill-remaining-space"></span>
+    <a routerLink="/queries" mat-raised-button
+      color="primary">
+      <mat-icon aria-label="Add">add_circle</mat-icon>&nbsp; Add New
+    </a>
+  </mat-toolbar>
+</mat-card>
+<ngx-datatable class="material ngx-table-card" [rows]="list" [columnMode]="'force'"
+      [headerHeight]="50"
+      [footerHeight]="50"
+      [rowHeight]="'auto'"
+      [limit]="10">
+        <ngx-datatable-column>
+            <ng-template let-column="column" ngx-datatable-header-template>
+                Query No.
+            </ng-template>
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                 {{row.id}}
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column>
+          <ng-template let-column="column" ngx-datatable-header-template>
+              Query Type
+          </ng-template>
+          <ng-template let-row="row" ngx-datatable-cell-template>
+               {{row.queryType}}
+          </ng-template>
+      </ngx-datatable-column>
+        <ngx-datatable-column>
+            <ng-template let-column="column" ngx-datatable-header-template>
+               Category
+            </ng-template>
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row.category?.name}}
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column>
+          <ng-template let-column="column" ngx-datatable-header-template>
+             Branch
+          </ng-template>
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.branch?.branchName | uppercase}}
+          </ng-template>
+      </ngx-datatable-column>
+    <ngx-datatable-column>
+      <ng-template let-column="column" ngx-datatable-header-template>
+         Priority
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.priority}}
+      </ng-template>
+  </ngx-datatable-column>
+        <ngx-datatable-column *ngIf="roles.includes('ROLE_MANAGER')">
+            <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                <div class="button-row">
+                    <button mat-icon-button (click)="openDialog(row)">
+                        <mat-icon>border_color</mat-icon>
+                      </button>
+                      <button mat-icon-button color="warn" (click)="deleteQuery(row.id, rowIndex)">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                </div>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column *ngIf="roles.includes('ROLE_BRANCH_OFFICER')">
+          <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+              <div class="button-row">
+                  <button mat-icon-button (click)="editQuery(row.id)">
+                      <mat-icon>border_color</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="deleteQuery(row.id, rowIndex)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+              </div>
+          </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+</div>
+</div>
+
+<div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+  <div fxFlex="85%">
+<mat-card class="card-padding">
+  <mat-toolbar color="accent">
+      <a routerLink="/admin/" mat-icon-button>
+        <mat-icon aria-label="Back">arrow_back</mat-icon>
+    </a>
+    <span class="fill-remaining-space"></span>
+      <span>in progress</span>
+    <span class="fill-remaining-space"></span>
+    <!-- <a routerLink="/queries" mat-raised-button
+      color="primary">
+      <mat-icon aria-label="Add">add_circle</mat-icon>&nbsp; Add New
+    </a> -->
+  </mat-toolbar>
+</mat-card>
+<ngx-datatable class="material ngx-table-card" [rows]="pendingList" [columnMode]="'force'"
+      [headerHeight]="50"
+      [footerHeight]="50"
+      [rowHeight]="'auto'"
+      [limit]="10">
+        <ngx-datatable-column>
+            <ng-template let-column="column" ngx-datatable-header-template>
+                Query No.
+            </ng-template>
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                 {{row.id}}
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column>
+          <ng-template let-column="column" ngx-datatable-header-template>
+              Query Type
+          </ng-template>
+          <ng-template let-row="row" ngx-datatable-cell-template>
+               {{row.queryType}}
+          </ng-template>
+      </ngx-datatable-column>
+        <ngx-datatable-column>
+            <ng-template let-column="column" ngx-datatable-header-template>
+               Category
+            </ng-template>
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row.category?.name}}
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column>
+          <ng-template let-column="column" ngx-datatable-header-template>
+             Branch
+          </ng-template>
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.branch?.branchName | uppercase}}
+          </ng-template>
+      </ngx-datatable-column>
+    <ngx-datatable-column>
+      <ng-template let-column="column" ngx-datatable-header-template>
+         Priority
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.priority}}
+      </ng-template>
+  </ngx-datatable-column>
+        <ngx-datatable-column *ngIf="roles.includes('ROLE_MANAGER')">
+            <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                <div class="button-row">
+                    <button mat-icon-button (click)="openDialog(row)">
+                        <mat-icon>view_quilt</mat-icon>
+                      </button>
+                      <!-- <button mat-icon-button color="warn" (click)="deleteQuery(row.id, rowIndex)">
+                        <mat-icon>delete</mat-icon>
+                      </button> -->
+                </div>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column *ngIf="roles.includes('ROLE_BRANCH_OFFICER')">
+          <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+              <div class="button-row">
+                  <button mat-icon-button (click)="editQuery(row.id)">
+                      <mat-icon>view_quilt</mat-icon>
+                    </button>
+                    <!-- <button mat-icon-button color="warn" (click)="deleteQuery(row.id, rowIndex)">
+                      <mat-icon>delete</mat-icon>
+                    </button> -->
+              </div>
+          </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+</div>
+</div>
+<div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+  <div fxFlex="85%">
+<mat-card class="card-padding">
+  <mat-toolbar color="accent">
+      <a routerLink="/admin/" mat-icon-button>
+        <mat-icon aria-label="Back">arrow_back</mat-icon>
+    </a>
+    <span class="fill-remaining-space"></span>
+      <span>Completed</span>
+    <span class="fill-remaining-space"></span>
+    <!-- <a routerLink="/queries" mat-raised-button
+      color="primary">
+      <mat-icon aria-label="Add">add_circle</mat-icon>&nbsp; Add New
+    </a> -->
+  </mat-toolbar>
+</mat-card>
+<ngx-datatable class="material ngx-table-card" [rows]="doneList" [columnMode]="'force'"
+      [headerHeight]="50"
+      [footerHeight]="50"
+      [rowHeight]="'auto'"
+      [limit]="10">
+        <ngx-datatable-column>
+            <ng-template let-column="column" ngx-datatable-header-template>
+                Query No.
+            </ng-template>
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                 {{row.id}}
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column>
+          <ng-template let-column="column" ngx-datatable-header-template>
+              Query Type
+          </ng-template>
+          <ng-template let-row="row" ngx-datatable-cell-template>
+               {{row.queryType}}
+          </ng-template>
+      </ngx-datatable-column>
+        <ngx-datatable-column>
+            <ng-template let-column="column" ngx-datatable-header-template>
+               Category
+            </ng-template>
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row.category?.name}}
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column>
+          <ng-template let-column="column" ngx-datatable-header-template>
+             Branch
+          </ng-template>
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.branch?.branchName | uppercase}}
+          </ng-template>
+      </ngx-datatable-column>
+    <ngx-datatable-column>
+      <ng-template let-column="column" ngx-datatable-header-template>
+         Priority
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.priority}}
+      </ng-template>
+  </ngx-datatable-column>
+        <ngx-datatable-column *ngIf="roles.includes('ROLE_MANAGER')">
+            <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+                <div class="button-row">
+                    <button mat-icon-button (click)="sendMessageToUser(row)">
+                        <mat-icon>mail_outline</mat-icon>
+                      </button>
+                      <!-- <button mat-icon-button color="warn" (click)="deleteQuery(row.id, rowIndex)">
+                        <mat-icon>delete</mat-icon>
+                      </button> -->
+                </div>
+            </ng-template>
+        </ngx-datatable-column>
+        <!-- <ngx-datatable-column *ngIf="roles.includes('ROLE_BRANCH_OFFICER')">
+          <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+              <div class="button-row">
+                  <button mat-icon-button (click)="editQuery(row.id)">
+                      <mat-icon>mail_outline</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="deleteQuery(row.id, rowIndex)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+              </div>
+          </ng-template>
+      </ngx-datatable-column> -->
+    </ngx-datatable>
+</div>
+</div>

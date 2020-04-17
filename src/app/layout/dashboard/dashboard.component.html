@@ -1,0 +1,57 @@
+
+
+<ngx-datatable class="material ngx-table-card" [rows]="list" [columnMode]="'force'"
+[headerHeight]="50"
+[footerHeight]="50"
+[rowHeight]="'auto'"
+[limit]="5">
+  <ngx-datatable-column>
+      <ng-template let-column="column" ngx-datatable-header-template>
+          Query Type
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+           {{row.queryType}}
+      </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column>
+      <ng-template let-column="column" ngx-datatable-header-template>
+         Category
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.category?.name}}
+      </ng-template>
+  </ngx-datatable-column>
+  <ngx-datatable-column>
+    <ng-template let-column="column" ngx-datatable-header-template>
+       Branch
+    </ng-template>
+    <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.branch.branchName | uppercase}}
+    </ng-template>
+</ngx-datatable-column>
+<ngx-datatable-column>
+    <ng-template let-column="column" ngx-datatable-header-template>
+       Status
+    </ng-template>
+    <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.status}}
+    </ng-template>
+</ngx-datatable-column>
+<ngx-datatable-column>
+  <ng-template let-column="column" ngx-datatable-header-template>
+     Complainant
+  </ng-template>
+  <ng-template let-row="row" ngx-datatable-cell-template>
+      {{row.fullname}}
+  </ng-template>
+</ngx-datatable-column>
+  <ngx-datatable-column>
+      <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+          <div class="button-row">
+              <button mat-icon-button (click)="editQuery(row)">
+                  <mat-icon>border_color</mat-icon>
+                </button>
+          </div>
+      </ng-template>
+  </ngx-datatable-column>
+</ngx-datatable>

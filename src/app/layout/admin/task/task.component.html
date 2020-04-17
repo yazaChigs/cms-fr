@@ -1,0 +1,78 @@
+<form [formGroup]="taskForm">
+  <app-base-form></app-base-form>
+  <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
+    <div fxFlex="40%">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Assignee</mat-label>
+        <mat-select placeholder="Assignee" formControlName="assignee" [compareWith]="compareFn"  disabled>
+          <mat-option *ngFor="let item of user" [value]="item">
+            {{item.firstName}} {{item.lastName}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div fxFlex="20%">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Expected Spent time(h)</mat-label>
+        <input matInput disabled placeholder="Branch Address" formControlName="spentTime" type="number" required>
+      </mat-form-field>
+    </div>
+    <div fxFlex="20%">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Actual time spent(h)</mat-label>
+        <input matInput placeholder="Branch Address" formControlName="actualTimeSpent" type="number"  required>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="container" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px"
+      fxLayoutGap.xs="0">
+      <div fxFlex="25%">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Priority</mat-label>
+          <mat-select placeholder="Priority" disabled formControlName="priority"  >
+            <!-- <mat-option *ngFor="let key of priorityKeys" [value]="priority[key]">
+              {{ priority[key] }}
+            </mat-option> -->
+            <mat-option value="NORMAL">NORMAL</mat-option>
+            <mat-option value="IMMEDIATE">IMMEDIATE</mat-option>
+            <mat-option value="URGENT">URGENT</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex="25%">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Status</mat-label>
+          <mat-select placeholder="Status" formControlName="status"  disabled>
+            <!-- <mat-option *ngFor="let key of statusKeys" [value]="status[key]">
+              {{ status[key] }}
+            </mat-option> -->
+            <mat-option value="WAITING">WAITING</mat-option>
+            <mat-option value="PENDING">PENDING</mat-option>
+            <mat-option value="RESOLVED">RESOLVED</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+  <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
+    <div fxFlex="70%">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Notes</mat-label>
+        <textarea matInput placeholder="Phone Number" formControlName="assigneeNotes" ></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+  <mat-divider insert="true"></mat-divider>
+  <!-- branch list -->
+
+    <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
+      <div fxFlex="20%">
+      </div>
+      <div fxFlex="40%">
+        <button mat-raised-button class="btn-md" [disabled]="! taskForm.valid" color="primary" (click)="submitValues(taskForm.value)">Submit</button>&nbsp;
+        <button mat-raised-button  routerLinkActive="router-link-active" class="btn-md" color="warn">Cancel</button>
+      </div>
+    </div>
+</form>
+{{taskForm.value |json}}

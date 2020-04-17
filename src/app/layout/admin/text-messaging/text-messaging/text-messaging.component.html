@@ -1,0 +1,92 @@
+<div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+  <div fxFlex="85%">
+<mat-card class="border card-padding">
+  <mat-toolbar color="accent">
+      <a routerLink="/admin/config" mat-icon-button>
+        <mat-icon aria-label="Back">arrow_back</mat-icon>
+    </a>
+    <span class="fill-remaining-space"></span>
+    <span>Text Messaging Settings</span>
+    <span class="fill-remaining-space"></span>
+
+  </mat-toolbar>
+  <form [formGroup]="textMessagingForm" (ngSubmit)="save(textMessagingForm.value)">
+    <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
+      <input type="hidden" formControlName="id">
+      <input type="hidden" formControlName="version">
+      <input type="hidden" formControlName="createdById">
+      <input type="hidden" formControlName="dateCreated">
+      <input type="hidden" formControlName="message">
+
+      <div fxFlex="12%">
+        <p>
+          <mat-label class="full-width">Username</mat-label>
+        </p>
+      </div><div fxFlex="80%">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Username</mat-label>
+          <input matInput placeholder="Enter Username..." formControlName="username" required>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
+      <div fxFlex="12%">
+        <p>
+          <mat-label class="full-width">Web Service Token</mat-label>
+        </p>
+      </div>
+      <div fxFlex="80%">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Web Service Token</mat-label>
+          <input matInput placeholder="Enter Web Service Token..." formControlName="webServiceToken" required>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
+      <div fxFlex="12%">
+        <p>
+          <mat-label class="full-width">Message</mat-label>
+        </p>
+      </div>
+      <div fxFlex="80%">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>message</mat-label>
+          <textarea matInput formControlName="message" ></textarea>
+        </mat-form-field>
+        <h5><i>edit everything else except for the %Ss which are in the order
+          PATIENT_NAME, DOCTOR_NAME, PLACE, DATE and TIME respectively</i></h5>
+      </div>
+    </div>
+    <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
+      <div fxFlex="12%">
+        <p>
+          <mat-label class="full-width">Payment Instructions</mat-label>
+        </p>
+      </div>
+      <div fxFlex="80%">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label><mat-icon>edit</mat-icon>edit instructions</mat-label>
+          <textarea matInput formControlName="instructions" required></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
+      <div fxFlex="80%">
+          <mat-label class="full-width">Credits left: <h1>{{credits}}</h1></mat-label>
+     </div>
+    </div>
+
+
+    <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
+      <div fxFlex="12%">
+
+      </div>
+      <div fxFlex="70%">
+        <button mat-raised-button class="btn-md"  color="accent">Save</button>&nbsp;
+        <button type="button" (click)="cancel()" mat-raised-button class="btn-md" color="warn" >Cancel</button>
+      </div>
+    </div>
+  </form>
+</mat-card>
+</div>
+</div>

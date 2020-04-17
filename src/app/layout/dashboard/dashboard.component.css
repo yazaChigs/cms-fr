@@ -1,0 +1,56 @@
+.info-card{
+  background-color: aliceblue;
+  height: 7em;
+}
+.branch-grid{
+  margin: 0px;
+}
+.top-filters{
+  margin-top: 25px;
+}
+.top-filters-btn{
+  margin-top: 25px;
+  height: 60px;
+}
+.chart-container-height{
+  height: 150px;
+}
+.grid-bg-a{
+  background: rgb(233, 191, 191);
+}
+.grid-bg-b{
+  background: rgb(248, 236, 236);
+}
+.gray-fields{
+  background: rgb(124, 122, 122);
+}
+.ob-card {
+  margin: 0px;
+}
+.green-bg-a{
+  background: rgb(51, 228, 51);
+}
+.green-bg-b{
+  background: rgb(155, 243, 155);
+}
+.orange-bg-a{
+  background: rgb(241, 162, 89);
+}
+.orange-bg-b{
+  background: rgb(255, 123, 0);
+}
+.borders{
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+/* .image-container{
+  background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url(/assets/images/donateBlood.jpg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  top: -10px;
+} */

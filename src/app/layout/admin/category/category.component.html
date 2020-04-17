@@ -1,0 +1,52 @@
+
+  <mat-card class="border card-padding">
+    <mat-toolbar color="accent">
+      <a routerLink="/category" mat-icon-button>
+          <mat-icon aria-label="Back">arrow_back</mat-icon>
+      </a>
+      <span class="fill-remaining-space"></span>
+      <span>Add Category</span>
+      <span class="fill-remaining-space"></span>
+      <button mat-raised-button [routerLink]="['/category']" routerLinkActive="router-link-active" color="primary">
+        <mat-icon aria-label="Add">list</mat-icon>&nbsp; categories
+      </button>
+    </mat-toolbar>
+  
+    <form [formGroup]="form" (ngSubmit)="submit(form.value)">
+        <app-base-form></app-base-form>
+      <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
+        <div fxFlex="40%">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Name" formControlName="name" oninput="this.value = this.value.toUpperCase()" required>
+          </mat-form-field>
+        </div>
+      </div>
+  
+      <div class="container" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px"
+        fxLayoutGap.xs="0">
+        <div fxFlex="60%">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>description</mat-label>
+            <textarea matInput  formControlName="description" ></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+  
+      
+      <!--  removed [disabled]="role.selected" -->
+      <br>
+      <br>
+      <mat-divider></mat-divider>
+      <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
+        <div fxFlex="12%">
+  
+        </div>
+        <div fxFlex="70%">
+          <button type="submit" mat-raised-button class="btn-md" [disabled]="!form.valid" color="accent">Save</button>&nbsp;
+          <button routerLink="/admin/user/list" type="button" mat-raised-button class="btn-md" color="warn">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </mat-card>
+  

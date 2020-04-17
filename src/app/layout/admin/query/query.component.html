@@ -1,0 +1,160 @@
+<mat-card class="border card-padding">
+  <mat-toolbar color="accent">
+    <a routerLink="/query-list" mat-icon-button>
+        <mat-icon aria-label="Back">arrow_back</mat-icon>
+    </a>
+    <span class="fill-remaining-space"></span>
+    <span>Add Query</span>
+    <span class="fill-remaining-space"></span>
+    <button mat-raised-button [routerLink]="['/query-list']" routerLinkActive="router-link-active" color="primary">
+      <mat-icon aria-label="Add">list</mat-icon>&nbsp; queries
+    </button>
+  </mat-toolbar>
+
+  <form [formGroup]="newQueryForm" (ngSubmit)="onSubmitUserDetails(newQueryForm.value)">
+      <app-base-form></app-base-form>
+    <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
+      <div fxFlex="40%">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Fullname</mat-label>
+          <input matInput placeholder="Enter Complainants name..." formControlName="fullname">
+        </mat-form-field>
+      </div>
+
+      <div fxFlex="25%">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Phone</mat-label>
+          <input matInput placeholder="Enter Complainants Phone..." formControlName="phone">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="container" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px"
+      fxLayoutGap.xs="0">
+      <div fxFlex="30%">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Account Number</mat-label>
+          <input matInput  formControlName="accountNumber">
+        </mat-form-field>
+      </div>
+      <div fxFlex="30%">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Branch</mat-label>
+          <mat-select placeholder="branch" formControlName="branch" [compareWith]="compareFn" disabled="true">
+            <mat-option *ngFor="let item of branches" [value]="item" >
+              {{item?.branchName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex="15%">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Stan Number</mat-label>
+          <input matInput placeholder="Stan Number" formControlName="stanNo"  >
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- <div class="container" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px"
+      fxLayoutGap.xs="0">
+      
+      <div fxFlex="25%">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Status</mat-label>
+          <mat-select placeholder="Status" formControlName="status" [compareWith]="compareFn" >
+            <mat-option *ngFor="let key of statusKeys" [value]="status[key]">
+              {{ status[key] }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div> -->
+    <div class="container" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px"
+      fxLayoutGap.xs="0">
+      <div fxFlex="30%">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Priority</mat-label>
+          <mat-select placeholder="Priority" formControlName="priority"  >
+            <!-- <mat-option *ngFor="let key of priorityKeys" [value]="priority[key]">
+              {{ priority[key] }}
+            </mat-option> -->
+            <mat-option value="NORMAL">NORMAL</mat-option>
+            <mat-option value="IMMEDIATE">IMMEDIATE</mat-option>
+            <mat-option value="URGENT">URGENT</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex="30%">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Category</mat-label>
+          <mat-select placeholder="Category" formControlName="category" [compareWith]="compareFn"  required>
+            <mat-option *ngFor="let item of categories" [value]="item">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex="30%">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Query Type</mat-label>
+          <mat-select placeholder="Queries" formControlName="queryType"  required>
+            <mat-option value="pos">Pos</mat-option>
+            <mat-option value="airtime">Airtime</mat-option>
+            <mat-option value="dstv">Dstv</mat-option>
+            <mat-option value="mobilePayments">Mobile Payments</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="container" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px"
+      fxLayoutGap.xs="0"></div>
+    <div class="container" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px"
+      fxLayoutGap.xs="0">
+      <div fxFlex="50%">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Short Description</mat-label>
+          <input matInput placeholder="Stan Number" formControlName="description"  >
+        </mat-form-field>
+      </div>
+      </div>
+
+      <div class="container" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px"
+      fxLayoutGap.xs="0"></div>
+    <div class="container" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px"
+      fxLayoutGap.xs="0">
+      <div fxFlex="90%">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Full Description</mat-label>
+          <textarea matInput placeholder="Enter description..." formControlName="complaintDetails"></textarea>
+        </mat-form-field>
+      </div>
+      </div>
+
+  
+    <div class="parent" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
+
+      <div fxFlex="12%">
+        <p>
+          <mat-label class="full-width">Attchmemnts</mat-label>
+        </p>
+      </div>
+      <div fxFlex="20%">
+      </div>
+    </div>
+    <!--  removed [disabled]="role.selected" -->
+    <br>
+    <br>
+    <mat-divider></mat-divider>
+    <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
+      <div fxFlex="12%">
+
+      </div>
+      <div fxFlex="70%">
+        <button type="submit" mat-raised-button class="btn-md" [disabled]="!newQueryForm.valid" color="accent">Save</button>&nbsp;
+        <button routerLink="/admin/user/list" type="button" mat-raised-button class="btn-md" color="warn">Cancel</button>
+      </div>
+    </div>
+  </form>
+</mat-card>
+{{newQueryForm.value |json}}

@@ -1,0 +1,109 @@
+<div [class]="theme">
+  <mat-sidenav-container class="sidenav-container">
+<!-- mat-sidenav-container class="default-theme sidenav-container"> -->
+  <mat-sidenav #drawer  mode="side" class="sidenav border_right_accent" fixedInViewport="true"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      opened="true">
+    <div class="bb">
+      <!-- <img src="/assets/images/u8.png" mat-card-avatar class="avatar-image"> -->
+      <!-- <span><p>&nbsp;v0.2.2</p></span>
+      <span class="nav-spacer"></span> -->
+      <!-- <button class="nav-toggle-btn" mat-icon-button (click)="drawer.toggle()">
+        <mat-icon>clear</mat-icon>
+      </button> -->
+    </div>
+    <!-- <div class="select-com" *ngIf="showCompanies">
+      <mat-form-field >
+        <input type="text" placeholder="Select Company" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (click)="selectItem(option)">
+            {{option.name}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div> -->
+    <mat-nav-list >
+        <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link" class="bb" ><mat-icon class="sidenav-icon" color="primary">dashboard</mat-icon>Dashboard</a>
+        <a *ngIf="roles.includes('ROLE_MANAGER')|| roles.includes('ROLE_GLOBAL')" mat-list-item routerLink="/admin" routerLinkActive="active-link" class="bb" ><mat-icon class="sidenav-icon" color="primary">dashboard</mat-icon>Admin</a>
+        <a *ngIf="roles.includes('ROLE_E_BANKING')" mat-list-item routerLink="/tasks" routerLinkActive="active-link" class="bb" ><mat-icon class="sidenav-icon" color="primary">all_inbox</mat-icon>My Tasks</a>
+        <a *ngIf="roles.includes('ROLE_BRANCH_OFFICER')" mat-list-item routerLink="/queries" routerLinkActive="active-link" class="bb" ><mat-icon class="sidenav-icon" color="primary">bookmarks</mat-icon>Lodge Complaint</a>
+        <a mat-list-item routerLink="/query-list" routerLinkActive="active-link" class="bb" ><mat-icon class="sidenav-icon" color="primary">bookmarks</mat-icon>Complaint History</a>
+        <a mat-list-item routerLink="/admin/category" routerLinkActive="active-link" class="bb" ><mat-icon class="sidenav-icon" color="primary">bookmarks</mat-icon>Category</a>
+        <!-- <a *ngIf="roles.includes('ROLE_ADMIN') || roles.includes('ROLE_GLOBAL')"  mat-list-item routerLink="/admin" routerLinkActive="active-link" class="bb"><mat-icon class="sidenav-icon" color="primary">chrome_reader_mode</mat-icon>Admin</a> -->
+      <!-- <a mat-list-item *ngFor="let card of list" routerLink="{{card.link}}" routerLinkActive="active-link" ><mat-icon class="sidenav-icon" color="primary">{{card.icon}}</mat-icon>{{card.title}}</a> -->
+      </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="">
+<div class="fixed-header-nav ">
+    <mat-toolbar color="primary"  style="height: 80px;">
+      <div class="logo">
+        <div class="smallLogoContainer">
+          <img  src="assets/images/cbz-banner.jpg" alt=""  style="height:auto; width: 175px; padding: 0px; left: -10px;" />
+        </div>
+      </div>
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+       <!-- <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>-->
+      </button>
+       <button mat-icon-button (click)="drawer.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <div style="margin-left: 5%" fxShow="true" fxHide.lt-md>
+          <a routerLink="/dashboard" routerLinkActive="active-link"  mat-stroked-button><mat-icon class="sidenav-icon">dashboard</mat-icon>Home</a>
+          <a routerLink="/query-list" routerLinkActive="active-link"  mat-stroked-button><mat-icon class="sidenav-icon">all_inbox</mat-icon>Queries</a>
+          <a routerLink="/admin/category" routerLinkActive="active-link"  mat-stroked-button><mat-icon class="sidenav-icon">bookmarks</mat-icon>categories</a>
+          <!-- <a routerLink="/quarantined" routerLinkActive="active-link"  mat-stroked-button><mat-icon class="sidenav-icon">bookmarks</mat-icon>Electronic Bankin</a> -->
+          <!-- <a *ngIf="roles.includes('ROLE_ADMIN') || roles.includes('ROLE_GLOBAL')" routerLink="/admin" routerLinkActive="active-link"  mat-stroked-button><mat-icon class="sidenav-icon">chrome_reader_mode</mat-icon>Admin</a> -->
+        <!-- <a *ngFor="let card of modules" routerLink="{{card.link}}" routerLinkActive="active-link"  mat-stroked-button>
+            <mat-icon *ngIf="card.title!=='Clinical'" >{{card.icon}}</mat-icon>
+            <span *ngIf="card.title=='Clinical'" class="medical-icon-i-outpatient med-icon" aria-hidden="true" style="font-size: 25px;"></span>
+            {{card.title}}
+        </a> -->
+      </div>
+      <span class="nav-spacer"></span>
+      <!-- <h4>| QUERY HANDLING SYSTEM |</h4> -->
+      <button [disabled]="disableSyncBtn" mat-icon-button (click)="sync()" matTooltip="sync">
+        <mat-icon class="nav-icon">autorenew</mat-icon>
+      </button>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon class="nav-icon">account_circle</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+          <button mat-menu-item >
+              <mat-icon>person_outline</mat-icon>
+              <span><strong>{{currentUsername}}</strong></span>
+            </button>
+            <button mat-menu-item >
+              <mat-icon>person_outline</mat-icon>
+              <span><strong>{{user?.branch?.branchName}}</strong></span>
+            </button>
+            <button mat-menu-item >
+              <mat-icon>person_outline</mat-icon>
+              <span><strong>{{roles[0]}}</strong></span>
+            </button>
+        <button mat-menu-item (click)="openChangePasswordDialog()">
+          <mat-icon>swap_vertical_circle</mat-icon>
+          <span>Change Password</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>notifications_off</mat-icon>
+          <span>Disable alerts</span>
+        </button>
+      </mat-menu>
+      <button class="topnav-icon" mat-icon-button (click)="logout()" matTooltip="logout">
+        <mat-icon>exit_to_app</mat-icon>
+      </button>
+    </mat-toolbar>
+  </div>
+<div class="nav-content-margin">
+    <!-- Add Content Here -->
+    <ng-content></ng-content>
+  </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+</div>

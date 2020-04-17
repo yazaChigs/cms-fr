@@ -1,0 +1,43 @@
+<div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+  <div fxFlex="85%">
+<mat-card class="card-padding">
+  <mat-toolbar color="accent">
+      <a routerLink="/admin/config/medicine-dashboard" mat-icon-button>
+        <mat-icon aria-label="Back">arrow_back</mat-icon>
+    </a>
+    <span class="fill-remaining-space"></span>
+      <span>Categories</span>
+    <span class="fill-remaining-space"></span>
+    <button mat-raised-button (click)="addNew()"
+      color="primary">
+      <mat-icon aria-label="Add">add_circle</mat-icon>Add New
+    </button>
+  </mat-toolbar>
+</mat-card>
+  <ngx-datatable class="bootstrap" [rows]="list" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+    [rowHeight]="'auto'" [limit]="5">
+    <ngx-datatable-column>
+      <ng-template let-column="column" ngx-datatable-header-template>
+        Name
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.name}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column>
+      <ng-template let-column="column" ngx-datatable-header-template>
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <div class="button-row">
+          <button (click)= "getItem(row.id)" mat-icon-button color="accent">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button (click)="delete(row.id)" mat-icon-button color="warn">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </ng-template>
+    </ngx-datatable-column>
+  </ngx-datatable>
+</div>
+</div>
