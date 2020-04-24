@@ -1,13 +1,13 @@
-<div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+<!-- <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
     <div fxFlex="98%">
       <mat-toolbar class="border" style="border-radius:5px;">
         <span>Administration</span>
       </mat-toolbar>
     </div>
-  </div>
+  </div> -->
 
   <div class="grid-container">
-      <mat-grid-list cols={{column}} rowHeight="200px">
+      <mat-grid-list cols=5 rowHeight="200px">
       <mat-grid-tile  colspan="1" rowspan="1">
           <mat-card role="region" (click)="redirect('/admin/user/')"  class="dashboard-card">
             <div class="card-padding">
@@ -74,3 +74,48 @@
                     </mat-grid-list>
       </div>
 
+      <div class="container " fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+        <div fxFlex="80%">
+          <div>
+            <div>
+              <div style="display: block">
+                <canvas baseChart
+                  [datasets]="barChartData"
+                  [labels]="barChartLabels"
+                  [options]="barChartOptions"
+                  [plugins]="barChartPlugins"
+                  [legend]="barChartLegend"
+                  [chartType]="barChartType">
+                </canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container " fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+        <div fxFlex="80%">
+          <div>
+            <div>
+              <div style="display: block;">
+                <canvas baseChart style="height: 200px;"
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                [plugins]="lineChartPlugins"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+<!-- <div class="container " fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+  <div fxFlex="20%" class="border_right_accent">
+<mat-action-list>
+  <button mat-list-item *ngFor="let user of users"> {{user.displayName}} </button>
+</mat-action-list>
+</div>
+<div fxFlex="80%"></div>
+</div> -->

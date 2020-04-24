@@ -25,6 +25,8 @@
     </div>
   </div>
 
+  
+
   <div class="container" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px"
       fxLayoutGap.xs="0">
       <div fxFlex="25%">
@@ -64,14 +66,25 @@
     </div>
   </div>
   <mat-divider insert="true"></mat-divider>
+  <input type="hidden" formControlName="startTime">
   <!-- branch list -->
 
-    <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
-      <div fxFlex="20%">
+    <div *ngIf="editForm" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
+     
+      <div fxFlex="25%">
+        <mat-button-toggle-group appearance="legacy" formControlName="working" name="fontStyle" aria-label="Font Style">
+          <mat-button-toggle (click)="editTime(taskForm.value.working)" value="START"><mat-icon>play_arrow</mat-icon></mat-button-toggle>
+          <mat-button-toggle (click)="editTime(taskForm.value.working)" value="PAUSE"><mat-icon>pause</mat-icon></mat-button-toggle>
+          <mat-button-toggle (click)="editTime(taskForm.value.working)" value="DONE"><mat-icon>done_all</mat-icon></mat-button-toggle>
+        </mat-button-toggle-group>
+        <!-- <mat-slide-toggle>Start task</mat-slide-toggle> -->
+        <!-- <mat-slide-toggle formControlName="working" checked="working.value" >{{taskForm.value.working ? 'WORKING' : 'NOT WORKING'}}</mat-slide-toggle> -->
+     
       </div>
-      <div fxFlex="40%">
-        <button mat-raised-button class="btn-md" [disabled]="! taskForm.valid" color="primary" (click)="submitValues(taskForm.value)">Submit</button>&nbsp;
-        <button mat-raised-button  routerLinkActive="router-link-active" class="btn-md" color="warn">Cancel</button>
+      <div fxFlex="35%"></div>
+      <div fxFlex="40%" *ngIf="taskForm.value.working==='DONE'">
+        <button mat-raised-button [disabled]="! taskForm.valid" color="primary" (click)="submitValues(taskForm.value)">Submit</button>&nbsp;
+        <button mat-raised-button  routerLinkActive="router-link-active"  color="warn">Cancel</button>
       </div>
     </div>
 </form>

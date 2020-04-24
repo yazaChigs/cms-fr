@@ -1,10 +1,11 @@
+import { ChartsModule } from 'ng2-charts';
 import { CategoryListComponent } from './category-list/category-list.component';
 import { NgModule } from '@angular/core';
 import { MatToolbarModule, MatButtonModule, MatIconModule, MatGridListModule, MatCardModule, MatDividerModule,
   MatInputModule,
   MatOptionModule,
   MatSelectModule,
-  MatCheckboxModule, MatMenuModule, MatTabsModule, MatDialogModule, MatAutocompleteModule, MatListModule} from '@angular/material';
+  MatCheckboxModule, MatMenuModule, MatTabsModule, MatDialogModule, MatAutocompleteModule, MatListModule, MatSlideToggleModule, MatButtonToggleModule} from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -35,9 +36,10 @@ import { TextMessagingComponent } from './text-messaging/text-messaging/text-mes
   imports: [
     AdminRoutingModule, SharedModule,
     ReactiveFormsModule, CommonModule, AccessDeniedSharedModule,
-    FlexLayoutModule,  FormsModule, ColorPickerModule, MatListModule,
+    FlexLayoutModule,  FormsModule, ColorPickerModule, MatListModule, ChartsModule,
     MatToolbarModule, MatButtonModule, MatIconModule, MatGridListModule, MatCardModule, MatDividerModule, MatTabsModule,
-    FlexLayoutModule,  FormsModule, FilterPipeModule, NgxDatatableModule, MatAutocompleteModule,
+    FlexLayoutModule,  FormsModule, FilterPipeModule, NgxDatatableModule, MatAutocompleteModule, MatSlideToggleModule,
+     MatButtonToggleModule,
     MatToolbarModule, MatButtonModule, MatIconModule, MatGridListModule, MatCardModule, MatDividerModule, MatTabsModule, MatDialogModule,
     MatInputModule, MatOptionModule, MatSelectModule, MatCheckboxModule, MatMenuModule, LayoutModule,  NgxPermissionsModule.forChild()
   ],

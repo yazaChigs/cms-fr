@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatGridListModule,
    MatCardModule, MatMenuModule, MatDividerModule, MatDialogModule, MatTooltipModule, MatAutocompleteModule,
-    MatInputModule, MatOptionModule, MatSelectModule, MatChipsModule, MatDatepickerModule, MatNativeDateModule, MatCheckboxModule, MatBadgeModule } from '@angular/material';
+    MatInputModule, MatOptionModule, MatSelectModule, MatChipsModule, MatDatepickerModule, MatNativeDateModule, MatCheckboxModule, MatBadgeModule, MatSlideToggleModule, MatButtonToggleModule } from '@angular/material';
 import { SideNavComponent } from './nav/side-nav/side-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { LayoutRoutingModule } from './layout-routing.module';
@@ -48,7 +48,7 @@ import { TaskComponent } from './admin/task/task.component';
     ReactiveFormsModule, FormsModule, MatAutocompleteModule, MatInputModule, MatOptionModule, MatSelectModule,
     AccessDeniedSharedModule, MatExpansionModule,
     LayoutRoutingModule, FlexLayoutModule,
-    MatButtonModule,
+    MatButtonModule,MatSlideToggleModule, MatButtonToggleModule,
     MatToolbarModule, FilterPipeModule,
     MatSidenavModule, MatCheckboxModule,
     MatIconModule, MatDatepickerModule,

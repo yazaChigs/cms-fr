@@ -30,8 +30,35 @@ export class CategoryComponent implements OnInit {
     version: new FormControl(),
     createdById: new FormControl(),
     name: new FormControl(),
+    queryType: new FormControl(),
     description: new FormControl(),
     });
+  }
+
+
+
+  submitMobile(value) {
+    this.service.save(value,'/category/save-mobile').subscribe(
+      result => {
+        this.snotify.success(
+          result.message,
+          'Success',
+          this.util.getNotifyConfig()
+        );
+        this.router.navigate(['/admin/category']);
+      },
+      error => {
+        const errorObject = error.error;
+        if (error.status === 400) {
+          this.serverError = errorObject;
+        }
+        this.snotify.error(
+          errorObject.message,
+          'Error',
+          this.util.getNotifyConfig()
+        );
+      }
+    );
   }
 
   submit(value) {

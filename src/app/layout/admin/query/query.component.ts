@@ -21,7 +21,7 @@ export class QueryComponent implements OnInit {
   util;
   branches: Branch[] = [];
   serverError: any;
-  categories: any;
+  categories: any = []
   status = Status;
   statusKeys: any[];
   priority = Priority;
@@ -49,7 +49,7 @@ export class QueryComponent implements OnInit {
   ngOnInit() {
     this.createForm();
     this.fetchBranches();
-    this.fetchCategories();
+    // this.fetchCategories();
     this.util = new NotifyUtil(this.snotify);
     if(this.queryId!== null) {
       this.getQuery();
@@ -121,10 +121,12 @@ export class QueryComponent implements OnInit {
     this.newQueryForm.get('branch').patchValue(this.user.branch);
     }
 
-    fetchCategories() {
-      this.service.getAll('/category/get-all').subscribe(
+    fetchCategories(value) {
+      console.log(value);
+      this.service.getAll('/category/get-all-by-type?type=' + value).subscribe(
         data => {
-        this.categories = data;
+          console.log(data);
+          this.categories = data;
         },
       error => {
        console.log(error);
@@ -153,6 +155,7 @@ export class QueryComponent implements OnInit {
           this.newQueryForm.get('phoneBusiness').setValue(value.phoneBusiness);
         }
       }
+
 
       getQuery() {
         this.service.getItem('/query/get-item?id=' + this.queryId).subscribe(

@@ -18,7 +18,7 @@ export class MonthlyBranchAnalysisComponent implements OnInit {
       datalabels: {
         anchor: 'end',
         align: 'end',
-        fillColor: 'green',
+        // fillColor: 'green',
       }
     }
   };

@@ -1,4 +1,38 @@
-
+<mat-grid-list cols="4" rowHeight="2:1">
+  <mat-grid-tile>
+    <mat-card class="full-width stat-card" [ngStyle]="{ 'background-color': randomColor1 }">
+      <mat-card-header>
+        <div mat-card-avatar ><mat-icon style="font-size: 50px;">account_balance</mat-icon></div>
+        <mat-card-subtitle>Waiting</mat-card-subtitle>
+        <mat-card-title>{{stats.waiting}}</mat-card-title>
+      </mat-card-header>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile><mat-card class="full-width stat-card" [ngStyle]="{ 'background-color': randomColor2 }">
+      <mat-card-header>
+        <div mat-card-avatar ><mat-icon style="font-size: 50px;">error_outline</mat-icon></div>
+        <mat-card-subtitle>Pending</mat-card-subtitle>
+        <mat-card-title>{{stats.pending}}</mat-card-title>
+      </mat-card-header>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile><mat-card class="full-width stat-card" [ngStyle]="{ 'background-color': randomColor3 }">
+      <mat-card-header>
+        <div mat-card-avatar ><mat-icon style="font-size: 50px;">sd_storage</mat-icon></div>
+        <mat-card-subtitle>Resolved</mat-card-subtitle>
+        <mat-card-title>{{stats.resolved}}</mat-card-title>
+      </mat-card-header>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile><mat-card class="full-width stat-card" [ngStyle]="{ 'background-color': randomColor4 }">
+      <mat-card-header>
+        <div mat-card-avatar ><mat-icon style="font-size: 50px;">alternate_email</mat-icon></div>
+        <mat-card-subtitle>Followers</mat-card-subtitle>
+        <mat-card-title>+45k</mat-card-title>
+      </mat-card-header>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
 
 <ngx-datatable class="material ngx-table-card" [rows]="list" [columnMode]="'force'"
 [headerHeight]="50"
@@ -26,7 +60,7 @@
        Branch
     </ng-template>
     <ng-template let-row="row" ngx-datatable-cell-template>
-        {{row.branch.branchName | uppercase}}
+        {{row.branch?.branchName | uppercase}}
     </ng-template>
 </ngx-datatable-column>
 <ngx-datatable-column>
@@ -55,3 +89,91 @@
       </ng-template>
   </ngx-datatable-column>
 </ngx-datatable>
+
+<div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
+  <div fxFlex="100%">
+    <mat-card >
+      <mat-card-header  class="card-header">
+      <mat-card-title  class="card-header-text">USERS BEHAVIOUR</mat-card-title>
+            <mat-card-subtitle  class="card-header-text">24 hour perfomance</mat-card-subtitle>
+          </mat-card-header>
+            <div class="flex-item">
+              <div style="display: block;">
+              <canvas baseChart  style="height: 200px;"
+                          [datasets]="lineChartData"
+                          [labels]="lineChartLabels"
+                          [options]="lineChartOptions"
+                          [colors]="lineChartColors"
+                          [legend]="lineChartLegend"
+                          [chartType]="lineChartType"
+                          [plugins]="lineChartPlugins"></canvas>
+              </div>
+            </div>
+    </mat-card>
+  </div>
+</div>
+<div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
+  <div fxFlex="30%">
+    <mat-card >
+      <mat-card-header class="card-header">
+      <mat-card-title class="card-header-text">Email Statistics</mat-card-title>
+            <mat-card-subtitle class="card-header-text">last campaign perfomance</mat-card-subtitle>
+      </mat-card-header>
+            <div>
+              <div>
+                <div >
+                  <canvas baseChart style="height: 310px;"
+                    [data]="pieChartData"
+                    [labels]="pieChartLabels"
+                    [chartType]="pieChartType"
+                    [options]="pieChartOptions"
+                    [plugins]="pieChartPlugins"
+                    [colors]="pieChartColors"
+                    [legend]="pieChartLegend">
+                    
+                  </canvas>
+                </div>
+              </div>
+            </div>
+            <!-- <div>
+              <button mat-button mat-raised-button color="primary" (click)="pieChartLegend=!pieChartLegend">Toggle Legend</button>
+              <button mat-button mat-raised-button color="primary" (click)="changeLabels()">Change Labels</button>
+              <button mat-button mat-raised-button color="primary" (click)="addSlice()">Add Slice</button>
+              <button mat-button mat-raised-button color="primary" (click)="removeSlice()">Remove Slice</button>
+              <button mat-button mat-raised-button color="primary" (click)="changeLegendPosition()">Change Legend Position</button>
+            </div> -->
+    </mat-card>
+  </div>
+  <div fxFlex="70%">
+    <mat-card >
+      <mat-card-header class="card-header">
+      <mat-card-title  class="card-header-text">NASDAQ:AAPL</mat-card-title>
+            <mat-card-subtitle  class="card-header-text">Line chart with points</mat-card-subtitle>
+          </mat-card-header>
+            <div>
+              <div>
+                <div style="display: block">
+                  <canvas baseChart
+                    [datasets]="barChartData"
+                    [labels]="barChartLabels"
+                    [options]="barChartOptions"
+                    [plugins]="barChartPlugins"
+                    [legend]="barChartLegend"
+                    [chartType]="barChartType">
+                  </canvas>
+                </div>
+                <!-- <button mat-button mat-raised-button color="primary" (click)="randomize()">Update</button> -->
+              </div>
+            </div>
+    </mat-card>
+  </div>
+</div>
+
+<div class="card-body ">
+  
+</div>
+
+<div class="card-body ">
+  
+</div>
+

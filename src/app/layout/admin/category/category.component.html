@@ -15,6 +15,17 @@
     <form [formGroup]="form" (ngSubmit)="submit(form.value)">
         <app-base-form></app-base-form>
       <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
+        <div fxFlex="30%">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Query Type</mat-label>
+            <mat-select placeholder="Queries" formControlName="queryType"  required>
+              <mat-option value="cardQuiries">Card Queries</mat-option>
+              <mat-option value="mobileBanking">Mobile Banking</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
         <div fxFlex="40%">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Name</mat-label>
@@ -33,8 +44,7 @@
         </div>
       </div>
   
-      
-      <!--  removed [disabled]="role.selected" -->
+       removed [disabled]="role.selected" 
       <br>
       <br>
       <mat-divider></mat-divider>
@@ -49,4 +59,5 @@
       </div>
     </form>
   </mat-card>
+  
   

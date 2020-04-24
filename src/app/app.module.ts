@@ -1,3 +1,4 @@
+import { ChartsModule } from 'ng2-charts';
 import { Global } from './global';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -48,6 +49,7 @@ import { NgxPermissionsModule } from 'ngx-permissions';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    ChartsModule,
     MatGridListModule,
     MatCardModule,
     MatDividerModule,

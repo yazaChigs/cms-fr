@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Status } from 'src/app/shared/enums/status';
 import { Priority } from 'src/app/shared/enums/priority';
@@ -13,10 +13,10 @@ import { NotifyUtil } from 'src/app/util/notifyutil';
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.css']
 })
-export class TaskComponent implements OnInit {
+export class TaskComponent implements OnInit, OnDestroy  {
   taskForm: FormGroup;
   sub: any;
-  task: any;
+  task: any = {};
   taskId: any;
   user: any[] = [];
   status = Status;
@@ -24,13 +24,21 @@ export class TaskComponent implements OnInit {
   priority = Priority;
   priorityKeys: any[];
   util;
+  editForm = true;
+//   working = new FormControl('', [
+//     Validators.required
+// ]);
   serverError: any;
   compareFn: ((f1: any, f2: any) => boolean) | null = this.compareByValue;
 
   constructor(private fb: FormBuilder, private route: ActivatedRoute, private userService: UserService,
-              private service: CrudService, private snotify: SnotifyService, private router: Router) { 
+              private service: CrudService, private snotify: SnotifyService, private router: Router) {
     this.statusKeys = Object.keys(this.status).filter(Number);
     this.priorityKeys = Object.keys(this.priority).filter(Number);
+  }
+
+  ngOnDestroy() {
+    this.updateValues(this.taskForm.value);
   }
 
   ngOnInit() {
@@ -58,21 +66,45 @@ export class TaskComponent implements OnInit {
       this.taskForm.get('priority').setValue(this.task.priority);
       this.taskForm.get('status').patchValue(this.task.status);
       this.taskForm.get('spentTime').setValue(this.task.spentTime);
+      this.taskForm.get('startTime').setValue(this.task.startTime);
       this.taskForm.get('query').setValue(this.task.query);
+      this.taskForm.get('actualTimeSpent').setValue(this.task.actualTimeSpent);
+      this.taskForm.get('working').setValue(this.task.working);
     }
   }
   getTaskData() {
     this.service.getItem( '/task/get-item?id=' + this.taskId).subscribe(
       data => {
         this.task = data;
-        console.log(data);
+        if(this.user[0].id !== this.task.assignee.id) {
+          this.editForm = false;
+        }
         this.populateForm();
       },
     error => {
      console.log(error);
     });
   }
-  
+
+  editTime(value) {
+    if (value === 'START') {
+    if (this.taskForm.value.startTime === null || this.taskForm.value.startTime === undefined) {
+        this.taskForm.get('startTime').setValue(new Date());
+      } else if (this.taskForm.value.actualTimeSpent !== null) {
+        this.taskForm.get('startTime').setValue(new Date());
+      }
+    } else if (value === 'PAUSE') {
+      this.taskForm.get('actualTimeSpent').setValue(
+        (
+        this.taskForm.value.actualTimeSpent +
+        (+(new Date()) - +(this.taskForm.value.startTime)) / 3600000 // in hours
+        ).toFixed(4)
+        );
+    } else if (value === 'DONE') {
+
+    }
+  }
+
   createForm() {
     this.taskForm = this.fb.group({
       id: new FormControl(),
@@ -85,8 +117,10 @@ export class TaskComponent implements OnInit {
       priority: new FormControl('RESOLVED'),
 
       managersNotes: new FormControl(),
+      working: new FormControl(),
       assigneeNotes: new FormControl(),
       spentTime: new FormControl(),
+      startTime: new FormControl(),
       actualTimeSpent: new FormControl(),
       query: new FormControl(),
     });
@@ -105,7 +139,7 @@ export class TaskComponent implements OnInit {
   }
   submitValues(value) {
     value.status = 'RESOLVED';
-    this.service.save(value,'/task/save').subscribe(
+    this.service.save(value, '/task/save').subscribe(
       result => {
         this.snotify.success(
           result.message,
@@ -113,6 +147,29 @@ export class TaskComponent implements OnInit {
           this.util.getNotifyConfig()
         );
         this.router.navigate(['/tasks']);
+      },
+      error => {
+        const errorObject = error.error;
+        if (error.status === 400) {
+          this.serverError = errorObject;
+        }
+        this.snotify.error(
+          errorObject.message,
+          'Error',
+          this.util.getNotifyConfig()
+        );
+      }
+    );
+  }
+
+  updateValues(value) {
+    this.service.save(value, '/task/update').subscribe(
+      result => {
+        this.snotify.success(
+          result.message,
+          'Success',
+          this.util.getNotifyConfig()
+        );
       },
       error => {
         const errorObject = error.error;

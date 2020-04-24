@@ -10,6 +10,7 @@
 @import "assets/custom/css/radio-button.scss";
 
 @import "app/layout/nav/side-nav/side-nav.component.scss";
+@import "app/layout/dashboard/dashboard.component.scss";
 
 /*
 all the available colors
@@ -65,8 +66,8 @@ $yellow-theme: mat-light-theme(
   mat-palette($mat-deep-orange, 500)
 );
 $indigo-theme: mat-light-theme(
-  mat-palette($mat-indigo, 600),
-  mat-palette($mat-red, A700),
+  mat-palette($mat-indigo, 900),
+  mat-palette($mat-deep-orange, A700),
   mat-palette($mat-deep-orange, 500)
 );
 $light-blue-theme: mat-light-theme(
@@ -182,6 +183,7 @@ $blue-gray-theme: mat-light-theme(
 
 @mixin custom-components-theme($theme) {
   @include sidenav-component-theme($theme);
+  @include dashboard-component-theme($theme);
   @include global-theme-component($theme);
   @include dashboard-theme($theme);
   @include radio-check-theme($theme);

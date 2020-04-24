@@ -20,6 +20,7 @@ export class QueryListComponent implements OnInit {
   util;
   doneList: any[];
   pendingList: any[];
+  overdueList: any[];
   constructor(private service: CrudService, private router: Router, public dialog: MatDialog,
               private snotify: SnotifyService, ) {
     this.roles = JSON.parse(sessionStorage.getItem(StorageKey.GRANTED_AUTHORITIES));
@@ -31,6 +32,7 @@ export class QueryListComponent implements OnInit {
     this.fetchQuiries();
     this.fetchProgressQuiries();
     this.fetchCompletedQuiries();
+    this.fetchOverDueQuiries();
   }
 
   fetchQuiries() {
@@ -52,10 +54,27 @@ export class QueryListComponent implements OnInit {
      console.log(error);
     });
     }
+
+    fetchOverDueQuiries() {
+    this.service.getAll('/query/get-all-overdue').subscribe(
+      data => {
+        console.log(data);
+        this.overdueList = data;
+        if ( this.overdueList.length > 0) {
+          this.snotify.warning(
+            'There are OverDue Queries Still Pending',
+            'Waring',
+            this.util.getNotifyConfig()
+            );
+          }
+      },
+    error => {
+     console.log(error);
+    });
+    }
     fetchCompletedQuiries() {
       this.service.getAll('/query/get-all-completed').subscribe(
         data => {
-          console.log(data);
           this.doneList = data;
         },
       error => {

@@ -86,6 +86,15 @@
       </div>
       <div fxFlex="30%">
         <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Query Type</mat-label>
+          <mat-select placeholder="Queries" formControlName="queryType" ngModel (ngModelChange)="fetchCategories($event)"  required>
+            <mat-option value="cardQuiries">Card Queries</mat-option>
+            <mat-option value="mobileBanking">Mobile Banking</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex="30%">
+        <mat-form-field class="full-width" appearance="outline">
           <mat-label>Category</mat-label>
           <mat-select placeholder="Category" formControlName="category" [compareWith]="compareFn"  required>
             <mat-option *ngFor="let item of categories" [value]="item">
@@ -94,17 +103,7 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div fxFlex="30%">
-        <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Query Type</mat-label>
-          <mat-select placeholder="Queries" formControlName="queryType"  required>
-            <mat-option value="pos">Pos</mat-option>
-            <mat-option value="airtime">Airtime</mat-option>
-            <mat-option value="dstv">Dstv</mat-option>
-            <mat-option value="mobilePayments">Mobile Payments</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+      
     </div>
 
     <div class="container" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px"
