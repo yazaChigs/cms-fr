@@ -1,0 +1,36 @@
+<div [class]="theme">
+<h1 mat-dialog-title> {{data.labTestName | uppercase}} ({{data.labTestOrder.name | uppercase}})</h1>
+
+  <div mat-dialog-content>
+
+    <file-drop headertext="Drop files here (Only one at a time)" (onFileDrop)="dropped($event)"
+    (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+    </file-drop>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Size</th>
+                    <th>Last Date Modified</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody >
+                <tr>
+                    <td><strong>{{ validatedFile?.name }}</strong></td>
+                    <td><strong>{{ validatedFile?.size / 1000 }} kb</strong></td>
+                    <td><strong>{{ validatedFile?.lastModifiedDate }}</strong></td>
+                    <td><strong>{{ validatedFile?.type }}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  <div mat-dialog-actions align="end">
+    <button type="button" mat-raised-button color="warn" (click)="onNoClick()">
+      <mat-icon>close</mat-icon>Cancel
+    </button>
+    <button type="button" mat-raised-button color="primary" (click)="submit()">
+      <mat-icon>check</mat-icon>Save
+    </button>
+  </div>
+</div>

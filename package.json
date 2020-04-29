@@ -1,5 +1,5 @@
 {
-  "name": "bbstatement",
+  "name": "cms",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -51,6 +51,7 @@
     "ngx-bootstrap": "^5.2.2",
     "ngx-color-picker": "^7.0.1",
     "ngx-editor": "^4.1.0",
+    "ngx-export-as": "^1.4.2",
     "ngx-file-drop": "^5.0.0",
     "ngx-filter-pipe": "^2.1.2",
     "ngx-image-cropper": "^1.2.5",

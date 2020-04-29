@@ -2,26 +2,32 @@
   <div fxFlex="85%">
 <mat-card class="card-padding">
   <mat-toolbar color="accent">
-      <a routerLink="/admin/" mat-icon-button>
+      <a routerLink="/admin/" mat-icon-button matTooltip="back">
         <mat-icon aria-label="Back">arrow_back</mat-icon>
     </a>
+    
     <span class="fill-remaining-space"></span>
       <span>Your Tasks</span>
     <span class="fill-remaining-space"></span>
+    <button mat-icon-button matTooltip="export to excel" (click)="exportAsXLSX(myTasks,user.displayName +'_Tasks')">
+      <mat-icon>print</mat-icon>
+      </button>
+    <button mat-icon-button matTooltip="export to pdf" (click)="exportAs('pdf', 'portrait')"><mat-icon aria-label="Add">picture_as_pdf</mat-icon></button>
+    <!-- <button (click)="openQuotePdf()">View</button> -->
     <!-- <a routerLink="/query" mat-raised-button
       color="primary">
       <mat-icon aria-label="Add">add_circle</mat-icon>&nbsp; Add New
     </a> -->
   </mat-toolbar>
 </mat-card>
-<ngx-datatable class="material ngx-table-card" [rows]="myTasks" [columnMode]="'force'"
+<ngx-datatable id="mytable" class="material ngx-table-card" [rows]="myTasks" [columnMode]="'force'"
       [headerHeight]="50"
       [footerHeight]="50"
       [rowHeight]="'auto'"
       [limit]="10">
         <ngx-datatable-column>
             <ng-template let-column="column" ngx-datatable-header-template>
-                Task No.werty
+                Task No.
             </ng-template>
             <ng-template let-row="row" ngx-datatable-cell-template>
                  {{row.id}}
@@ -77,6 +83,9 @@
           <a routerLink="/admin/" mat-icon-button>
             <mat-icon aria-label="Back">arrow_back</mat-icon>
         </a>
+        <!-- <button mat-icon-button (click)="exportAsXLSX(myTasks,'Other_Tasks')">
+          <mat-icon>print</mat-icon>
+          </button> -->
         <span class="fill-remaining-space"></span>
           <span>Other Tasks</span>
         <span class="fill-remaining-space"></span>

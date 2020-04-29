@@ -9,6 +9,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Status } from 'src/app/shared/enums/status';
 import { Gender } from 'src/app/shared/enums/gender';
 import { Priority } from 'src/app/shared/enums/priority';
+import { MatDialog } from '@angular/material';
+import { UploadFileDialogComponent } from '../upload-file-dialog/upload-file-dialog.component';
 
 @Component({
   selector: 'app-query',
@@ -33,7 +35,8 @@ export class QueryComponent implements OnInit {
   user: any;
 
   constructor( private fb: FormBuilder, private snotify: SnotifyService, private service: CrudService,
-               private router: Router,  private route: ActivatedRoute, private branchService: BranchService) {
+               private router: Router,  private route: ActivatedRoute, private branchService: BranchService,
+               public dialog: MatDialog, ) {
                 this.user = JSON.parse(localStorage.getItem('USER'));
                 this.sub = this.route
                 .queryParams
@@ -57,7 +60,7 @@ export class QueryComponent implements OnInit {
   }
   createForm() {
     this.newQueryForm = this.fb.group({
-      id: new FormControl(),
+    id: new FormControl(),
     timeCreated: new FormControl(),
     dateCreated: new FormControl(),
     version: new FormControl(),
@@ -166,6 +169,16 @@ export class QueryComponent implements OnInit {
           },
         error => {
          console.log(error);
+        });
+      }
+      openUploadDialog(id): void {
+        const dialogRef = this.dialog.open(UploadFileDialogComponent, {
+          width: '850px',
+          data: {id}
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          // this.animal = result;
         });
       }
 }

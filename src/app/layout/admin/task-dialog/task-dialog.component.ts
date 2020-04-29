@@ -68,6 +68,7 @@ export class TaskDialogComponent implements OnInit {
     this.service.getItem('/task/get-by-query?id=' + this.data.value.id).subscribe(
       data => {
         this.task = data;
+        console.log(data);
         if (this.task !== null && this.task !== undefined) {
           this.users.push(data.assignee);
           this.taskForm.get('assignee').setValue(this.users[0]);

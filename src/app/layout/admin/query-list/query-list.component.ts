@@ -7,6 +7,10 @@ import { NotifyUtil } from 'src/app/util/notifyutil';
 import { ChangePasswordDialogComponent } from '../users/change-password-dialog/change-password-dialog.component';
 import { TaskDialogComponent } from '../task-dialog/task-dialog.component';
 import { StorageKey } from 'src/app/util/key';
+import { ExcelExportService } from 'src/app/shared/shared-service/excel-export.service';
+import { ExportAsService, ExportAsConfig, SupportedExtensions } from 'ngx-export-as';
+import * as jspdf from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-query-list',
@@ -21,8 +25,19 @@ export class QueryListComponent implements OnInit {
   doneList: any[];
   pendingList: any[];
   overdueList: any[];
-  constructor(private service: CrudService, private router: Router, public dialog: MatDialog,
-              private snotify: SnotifyService, ) {
+  config: ExportAsConfig = {
+    type: 'pdf',
+    elementIdOrContent: 'resolved',
+    options: {
+      jsPDF: {
+        orientation: 'landscape'
+      },
+      pdfCallbackFn: this.pdfCallbackFn // to add header and footer
+    }
+  };
+
+  constructor(private service: CrudService, private router: Router, public dialog: MatDialog,  private exportAsService: ExportAsService,
+              private snotify: SnotifyService,  private excelService: ExcelExportService, ) {
     this.roles = JSON.parse(sessionStorage.getItem(StorageKey.GRANTED_AUTHORITIES));
 
                }
@@ -132,5 +147,71 @@ export class QueryListComponent implements OnInit {
       // this.animal = result;
     });
   }
+
+  // excel
+  exportAsXLSX(value, name) {
+    const filtered = JSON.parse(JSON.stringify(value));
+    filtered.forEach(obj => {
+      delete obj.createdById;
+      delete obj.uuid;
+      delete obj.deleted;
+      delete obj.active;
+      delete obj.version;
+      delete obj.branch;
+      delete obj.category;
+      delete obj.fullAddress;
+      delete obj.dateCreated;
+      delete obj.dateModified;
+      delete obj.createdByName;
+      delete obj.id;
+    });
+    this.excelService.exportAsExcelFile(filtered, name);
+ }
+
+//  pdf
+
+pdfCallbackFn(pdf: any) {
+  // example to add page number as footer to every page of pdf
+  const noOfPages = pdf.internal.getNumberOfPages();
+  for (let i = 1; i <= noOfPages; i++) {
+    pdf.setPage(i);
+    pdf.text('Page ' + i + ' of ' + noOfPages, pdf.internal.pageSize.getWidth() - 100, pdf.internal.pageSize.getHeight() - 30);
+  }
+}
+
+exportAs(type: SupportedExtensions, id: string, opt?: string) {
+  this.config.type = type;
+  if (opt) {
+    this.config.options.jsPDF.orientation = opt;
+  }
+  const todaysDate = new Date().toLocaleDateString();
+  // this.config.elementIdOrContent = id;
+  this.exportAsService.save(this.config, id + '_' + todaysDate).subscribe(() => {
+    this.snotify.info(
+      'Opening PDF, please wait...',
+      'Information',
+      this.util.getNotifyConfig()
+      );
+  });
+}
+
+createPdf(id) {
+    const data = document.getElementById(id);
+    html2canvas(data).then(canvas => {
+        // Few necessary setting options
+        const imgWidth = 208;
+        const pageHeight = 295;
+        const imgHeight = canvas.height * imgWidth / canvas.width;
+        const heightLeft = imgHeight;
+
+        const contentDataURL = canvas.toDataURL('image/png');
+        const pdf = new jspdf('p', 'mm', 'a4'); // A4 size page of PDF
+        const position = 0;
+        const todaysDate = new Date().toLocaleDateString();
+        const filename = id + '_' + todaysDate + '_queries.pdf';
+        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+        pdf.save(filename); // Generated PDF
+    });
+}
 
 }

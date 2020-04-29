@@ -1,12 +1,12 @@
-<mat-card class="border card-padding">
-  <mat-toolbar color="accent">
+<mat-card class="border_accent card-padding border_radius">
+  <mat-toolbar color="primary">
     <a routerLink="/query-list" mat-icon-button>
         <mat-icon aria-label="Back">arrow_back</mat-icon>
     </a>
     <span class="fill-remaining-space"></span>
     <span>Add Query</span>
     <span class="fill-remaining-space"></span>
-    <button mat-raised-button [routerLink]="['/query-list']" routerLinkActive="router-link-active" color="primary">
+    <button mat-raised-button [routerLink]="['/query-list']" routerLinkActive="router-link-active" color="accent">
       <mat-icon aria-label="Add">list</mat-icon>&nbsp; queries
     </button>
   </mat-toolbar>
@@ -150,10 +150,11 @@
 
       </div>
       <div fxFlex="70%">
+        <button type="button" mat-stroked-button class="btn-md" [disabled]="!newQueryForm.valid" color="primary" (click)="openUploadDialog(newQueryForm.value.id)">Upload File</button>&nbsp;
         <button type="submit" mat-raised-button class="btn-md" [disabled]="!newQueryForm.valid" color="accent">Save</button>&nbsp;
         <button routerLink="/admin/user/list" type="button" mat-raised-button class="btn-md" color="warn">Cancel</button>
       </div>
     </div>
   </form>
 </mat-card>
-{{newQueryForm.value |json}}
+<!-- {{newQueryForm.value |json}} -->

@@ -28,6 +28,7 @@ import { SharedModule } from '../../core/shared.module';
 import { CategoryComponent } from './category/category.component';
 import { TaskDialogComponent } from './task-dialog/task-dialog.component';
 import { TextMessagingComponent } from './text-messaging/text-messaging/text-messaging.component';
+import { FileDropModule } from 'ngx-file-drop';
 
 @NgModule({
   declarations: [ BaseAdminComponent, AdminDashboardComponent, DataManagementComponent, BranchComponent, BranchListComponent,
@@ -35,11 +36,11 @@ import { TextMessagingComponent } from './text-messaging/text-messaging/text-mes
   ],
   imports: [
     AdminRoutingModule, SharedModule,
-    ReactiveFormsModule, CommonModule, AccessDeniedSharedModule,
+    ReactiveFormsModule, CommonModule, AccessDeniedSharedModule, 
     FlexLayoutModule,  FormsModule, ColorPickerModule, MatListModule, ChartsModule,
     MatToolbarModule, MatButtonModule, MatIconModule, MatGridListModule, MatCardModule, MatDividerModule, MatTabsModule,
     FlexLayoutModule,  FormsModule, FilterPipeModule, NgxDatatableModule, MatAutocompleteModule, MatSlideToggleModule,
-     MatButtonToggleModule,
+     MatButtonToggleModule, FileDropModule,
     MatToolbarModule, MatButtonModule, MatIconModule, MatGridListModule, MatCardModule, MatDividerModule, MatTabsModule, MatDialogModule,
     MatInputModule, MatOptionModule, MatSelectModule, MatCheckboxModule, MatMenuModule, LayoutModule,  NgxPermissionsModule.forChild()
   ],

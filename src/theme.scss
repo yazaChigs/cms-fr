@@ -68,7 +68,7 @@ $yellow-theme: mat-light-theme(
 $indigo-theme: mat-light-theme(
   mat-palette($mat-indigo, 900),
   mat-palette($mat-deep-orange, A700),
-  mat-palette($mat-deep-orange, 500)
+  mat-palette($mat-red, 700)
 );
 $light-blue-theme: mat-light-theme(
   mat-palette($mat-light-blue, 400),
@@ -135,6 +135,9 @@ $blue-gray-theme: mat-light-theme(
   }
   .border_right_accent {
     border-right: 2px solid mat-color($accent);
+  }
+  .top-margin{
+    top: 10px;
   }
   .color-primary {
     color: mat-color($primary);

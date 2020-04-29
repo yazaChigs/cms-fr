@@ -21,7 +21,7 @@
       // color: mat-color($primary);
     }
     .fixed-header-nav {
-      @include mat-elevation(7,mat-color($accent), 0.8);
+      @include mat-elevation(8,mat-color($primary), 1);
        position: fixed;
        height: 80px;
       top: 0;
@@ -30,6 +30,10 @@
       z-index:999;
 
     }
+}
+
+.total-bg{
+background-color: rgb(235, 231, 231);;
 }
 
 .sidenav .mat-toolbar {
@@ -64,7 +68,7 @@
  }
 
 .nav-content-margin{
- margin-top: 80px
+ margin-top: 90px
 }
 .select-com{
   padding: 5px;

@@ -4,7 +4,7 @@
       <mat-card-header>
         <div mat-card-avatar ><mat-icon style="font-size: 50px;">account_balance</mat-icon></div>
         <mat-card-subtitle>Waiting</mat-card-subtitle>
-        <mat-card-title>{{stats.waiting}}</mat-card-title>
+        <mat-card-title>{{stats.waiting ? stats.waiting:0}}</mat-card-title>
       </mat-card-header>
     </mat-card>
   </mat-grid-tile>
@@ -12,7 +12,7 @@
       <mat-card-header>
         <div mat-card-avatar ><mat-icon style="font-size: 50px;">error_outline</mat-icon></div>
         <mat-card-subtitle>Pending</mat-card-subtitle>
-        <mat-card-title>{{stats.pending}}</mat-card-title>
+        <mat-card-title>{{stats.pending ? stats.pending:0}}</mat-card-title>
       </mat-card-header>
     </mat-card>
   </mat-grid-tile>
@@ -20,15 +20,15 @@
       <mat-card-header>
         <div mat-card-avatar ><mat-icon style="font-size: 50px;">sd_storage</mat-icon></div>
         <mat-card-subtitle>Resolved</mat-card-subtitle>
-        <mat-card-title>{{stats.resolved}}</mat-card-title>
+        <mat-card-title>{{stats.resolved ? stats.resolved:0}}</mat-card-title>
       </mat-card-header>
     </mat-card>
   </mat-grid-tile>
   <mat-grid-tile><mat-card class="full-width stat-card" [ngStyle]="{ 'background-color': randomColor4 }">
       <mat-card-header>
         <div mat-card-avatar ><mat-icon style="font-size: 50px;">alternate_email</mat-icon></div>
-        <mat-card-subtitle>Followers</mat-card-subtitle>
-        <mat-card-title>+45k</mat-card-title>
+        <mat-card-subtitle>Free Assignees</mat-card-subtitle>
+        <mat-card-title>{{stats.freeAssignees ? stats.freeAssignees:0}} / {{stats.allAsignees? stats.allAsignees:0}}</mat-card-title>
       </mat-card-header>
     </mat-card>
   </mat-grid-tile>

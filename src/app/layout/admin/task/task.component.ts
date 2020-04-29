@@ -7,6 +7,7 @@ import { UserService } from '../../../shared/config/service/admin/user.service';
 import { CrudService } from '../../../shared/config/service/crud.service';
 import { SnotifyService } from 'ng-snotify';
 import { NotifyUtil } from 'src/app/util/notifyutil';
+import { Console } from '@angular/core/src/console';
 
 @Component({
   selector: 'app-task',
@@ -38,7 +39,10 @@ export class TaskComponent implements OnInit, OnDestroy  {
   }
 
   ngOnDestroy() {
-    this.updateValues(this.taskForm.value);
+    console.log(this.editForm);
+    if (this.taskForm.value.working !== 'DONE' && this.task.valid === true) {
+      this.updateValues(this.taskForm.value);
+    }
   }
 
   ngOnInit() {
@@ -101,7 +105,12 @@ export class TaskComponent implements OnInit, OnDestroy  {
         ).toFixed(4)
         );
     } else if (value === 'DONE') {
-
+        this.taskForm.get('actualTimeSpent').setValue(
+          (
+          this.taskForm.value.actualTimeSpent +
+          (+(new Date()) - +(this.taskForm.value.startTime)) / 3600000 // in hours
+          ).toFixed(4)
+          );
     }
   }
 

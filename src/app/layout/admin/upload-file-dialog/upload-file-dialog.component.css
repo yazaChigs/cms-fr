@@ -1,0 +1,19 @@
+td {
+  height: 20px;
+  vertical-align: bottom;
+}
+th, td {
+  padding: 10px;
+  text-align: center;
+}
+table {
+  margin-top: 20px;
+  border-radius: 10px;
+  width: 100%;
+}
+table, th, td {
+  border: 1px solid rgb(194, 210, 235);
+
+
+}
+tr:nth-child(even) {background-color: #f2f2f2;}

@@ -1,13 +1,13 @@
 
-  <mat-card class="border card-padding">
-    <mat-toolbar color="accent">
+  <mat-card class="border_accent card-padding border_radius">
+    <mat-toolbar color="primary">
       <a routerLink="/category" mat-icon-button>
           <mat-icon aria-label="Back">arrow_back</mat-icon>
       </a>
       <span class="fill-remaining-space"></span>
       <span>Add Category</span>
       <span class="fill-remaining-space"></span>
-      <button mat-raised-button [routerLink]="['/category']" routerLinkActive="router-link-active" color="primary">
+      <button mat-raised-button [routerLink]="['/category']" routerLinkActive="router-link-active" color="accent">
         <mat-icon aria-label="Add">list</mat-icon>&nbsp; categories
       </button>
     </mat-toolbar>
@@ -44,10 +44,10 @@
         </div>
       </div>
   
-       removed [disabled]="role.selected" 
+       <!-- removed [disabled]="role.selected" 
       <br>
-      <br>
-      <mat-divider></mat-divider>
+      <br> -->
+      <mat-divider insert="true"></mat-divider>
       <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
         <div fxFlex="12%">
   

@@ -2,41 +2,42 @@
 <table border="0">
   <tr>
     <td>Query No. :</td>
-    <td>{{data.value.id}}</td>
+    <td><b>{{data.value.id}}</b></td>
   </tr>
   <tr>
     <td>Query Type:</td>
-    <td>{{data.value.queryType}}</td>
+    <td><b>{{data.value.queryType}}</b></td>
   </tr>
   <tr>
     <td>Category:</td>
-    <td>{{data.value.category[0]}}</td>
+    <td><b>{{data.value.category.name}}</b></td>
   </tr>
   <tr>
     <td>Branch:</td>
-    <td>{{data.value.branch?.branchName}}</td>
+    <td><b>{{data.value.branch?.branchName}}</b></td>
   </tr>
   <tr>
     <td>Stan No.:</td>
-    <td>{{data.value.stanNo}}</td>
+    <td><b>{{data.value.stanNo}}</b></td>
   </tr>
   <tr>
     <td>Account No.:</td>
-    <td>{{data.value.accountNumber}}</td>
+    <td><b>{{data.value.accountNumber}}</b></td>
   </tr>
   <tr>
     <td>Description:</td>
-    <td>{{data.value.description}}</td>
+    <td><b>{{data.value.description}}</b></td>
   </tr>
   <tr>
     <td>Query Details:</td>
-    <td>{{data.value.complaintDetails}}</td>
+    <td><b>{{data.value.complaintDetails}}</b></td>
   </tr>
   <tr>
     <td>Date created:</td>
-    <td>{{data.value.dateCreated}}</td>
+    <td><b>{{data.value.dateCreated}}</b></td>
   </tr>
 </table>
+<mat-divider insert="true"></mat-divider>
 
 <form [formGroup]="taskForm">
   <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
@@ -108,4 +109,4 @@
       </div>
     </div>
 </form>
-{{taskForm.value | json}}
+<!-- {{taskForm.value | json}} -->

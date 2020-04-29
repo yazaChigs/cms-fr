@@ -47,4 +47,14 @@ export class CrudService implements BaseService {
     return this.http.post<any>(this.baseUrl + url, categories);
   }
 
+   /**
+   *Upload File For Lab Test Order
+   */
+  public uploadFile(file: File, id: string, url: string): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('id', id);
+    return this.http.post<any>(url, formData);
+  }
+
 }

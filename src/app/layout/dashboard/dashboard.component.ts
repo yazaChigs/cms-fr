@@ -241,8 +241,8 @@ export class DashboardComponent implements OnInit {
       }
 
     editQuery(userToEdit: any) {
-      this.service.getItem(userToEdit);
-      this.router.navigate(['queries']);
+      // this.service.getItem(userToEdit);
+      this.router.navigate(['query-list']);
      }
 
     //  pie

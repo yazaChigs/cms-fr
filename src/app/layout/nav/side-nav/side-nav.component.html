@@ -34,8 +34,8 @@
       <!-- <a mat-list-item *ngFor="let card of list" routerLink="{{card.link}}" routerLinkActive="active-link" ><mat-icon class="sidenav-icon" color="primary">{{card.icon}}</mat-icon>{{card.title}}</a> -->
       </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content class="">
-<div class="fixed-header-nav ">
+  <mat-sidenav-content class="total-bg">
+<div class="fixed-header-nav">
     <mat-toolbar color="primary"  style="height: 80px;">
       <div class="logo">
         <div class="smallLogoContainer">
@@ -78,7 +78,7 @@
               <mat-icon>person_outline</mat-icon>
               <span><strong>{{currentUsername}}</strong></span>
             </button>
-            <button mat-menu-item >
+            <button *ngIf="roles.includes('ROLE_BRANCH_OFFICER')" mat-menu-item >
               <mat-icon>person_outline</mat-icon>
               <span><strong>{{user?.branch?.branchName}}</strong></span>
             </button>

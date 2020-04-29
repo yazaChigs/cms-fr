@@ -34,16 +34,19 @@ import { SharedModule } from '../core/shared.module';
 import { CategoryListComponent } from './admin/category-list/category-list.component';
 import { TaskListComponent } from './admin/task-list/task-list.component';
 import { TaskComponent } from './admin/task/task.component';
+import { ExportAsModule } from 'ngx-export-as';
+import { UploadFileDialogComponent } from './admin/upload-file-dialog/upload-file-dialog.component';
+import { FileDropModule } from 'ngx-file-drop';
 
 @NgModule({
   declarations: [
     MainComponent,
     SideNavComponent, DeemandVsSupplyComponent, StockesChartComponent, CollectionsChartComponent,
-    DashboardComponent, BranchContributionsComponent, QueryComponent,
+    DashboardComponent, BranchContributionsComponent, QueryComponent, UploadFileDialogComponent,
     ChangePasswordDialogComponent, BloodGroupDaysSupplyComponent, QueryListComponent, TaskListComponent, TaskComponent
   ],
   imports: [
-    CommonModule,
+    CommonModule, ExportAsModule,
     LayoutModule, AdminModule, SharedModule,
     ReactiveFormsModule, FormsModule, MatAutocompleteModule, MatInputModule, MatOptionModule, MatSelectModule,
     AccessDeniedSharedModule, MatExpansionModule,
@@ -52,14 +55,14 @@ import { TaskComponent } from './admin/task/task.component';
     MatToolbarModule, FilterPipeModule,
     MatSidenavModule, MatCheckboxModule,
     MatIconModule, MatDatepickerModule,
-    MatListModule, ChartsModule,
+    MatListModule, ChartsModule, FileDropModule,
     MatGridListModule, MatBadgeModule,
     MatCardModule, MatDividerModule, MatNativeDateModule,
     MatMenuModule,
     MatDialogModule, MatTooltipModule,
     NgxDatatableModule, MatChipsModule
   ],
-  entryComponents: [ChangePasswordDialogComponent],
+  entryComponents: [ChangePasswordDialogComponent, UploadFileDialogComponent],
   providers: [MatDatepickerModule]
 })
 export class LayoutMainModule { }

@@ -3,6 +3,11 @@ import { CrudService } from '../../../shared/config/service/crud.service';
 import { Router } from '@angular/router';
 import { SnotifyService } from 'ng-snotify';
 import { NotifyUtil } from 'src/app/util/notifyutil';
+import { ExcelExportService } from 'src/app/shared/shared-service/excel-export.service';
+import { StorageKey } from 'src/app/util/key';
+import { User } from 'src/app/shared/config/model/admin/user.model';
+import { Global } from 'src/app/global';
+import { ExportAsService, ExportAsConfig, SupportedExtensions } from 'ngx-export-as';
 
 @Component({
   selector: 'app-task-list',
@@ -15,8 +20,23 @@ export class TaskListComponent implements OnInit {
   myTasks: any[];
   overdueTasks: any[];
   util;
+  user: any;
+  quotePdfLink: string;
+  config: ExportAsConfig = {
+    type: 'pdf',
+    elementIdOrContent: '',
+    options: {
+      jsPDF: {
+        orientation: 'landscape'
+      },
+      pdfCallbackFn: this.pdfCallbackFn // to add header and footer
+    }
+  };
 
-  constructor(private service: CrudService, private router: Router, private snotify: SnotifyService) { }
+  constructor( private excelService: ExcelExportService, private service: CrudService,  private exportAsService: ExportAsService,
+               private router: Router, private snotify: SnotifyService,  public global: Global, ) {
+                this.user = JSON.parse(localStorage.getItem(StorageKey.USER));
+                }
 
 
   ngOnInit() {
@@ -65,5 +85,61 @@ export class TaskListComponent implements OnInit {
       );
     }
      editTasks(value) {
-      this.router.navigate(['/task-edit'], { queryParams: { task: value.id } }) }
+      this.router.navigate(['/task-edit'], { queryParams: { task: value.id } }); }
+
+      // excel
+
+      exportAsXLSX(value, name) {
+        const filtered = JSON.parse(JSON.stringify(value));
+        filtered.forEach(obj => {
+          delete obj.createdById;
+          delete obj.uuid;
+          delete obj.deleted;
+          delete obj.active;
+          delete obj.version;
+          delete obj.branch;
+          delete obj.category;
+          delete obj.fullAddress;
+          delete obj.dateCreated;
+          delete obj.dateModified;
+          delete obj.createdByName;
+          delete obj.id;
+        });
+        this.excelService.exportAsExcelFile(filtered, name);
+     }
+
+    //  pdf
+
+    openQuotePdf() {
+      this.quotePdfLink = '/api/task/pdf';
+      const url = this.global.baseUrl + this.quotePdfLink;
+      window.open(url, '_blank');
+    }
+
+    pdfCallbackFn (pdf: any) {
+      // example to add page number as footer to every page of pdf
+      const noOfPages = pdf.internal.getNumberOfPages();
+      for (let i = 1; i <= noOfPages; i++) {
+        pdf.setPage(i);
+        pdf.text('Page ' + i + ' of ' + noOfPages, pdf.internal.pageSize.getWidth() - 100, pdf.internal.pageSize.getHeight() - 30);
+      }
+    }
+
+    exportAs(type: SupportedExtensions, opt?: string) {
+      this.config.type = type;
+      if (opt) {
+        this.config.options.jsPDF.orientation = opt;
+      }
+      const todaysDate = new Date().toLocaleTimeString();
+      this.config.elementIdOrContent = 'mytable';
+      this.exportAsService.save(this.config, this.user.firstName + '_' +this.user.lastName + '_Tasks' + todaysDate).subscribe(() => {
+        this.snotify.warning(
+          'Opening PDF',
+          'Information',
+          this.util.getNotifyConfig()
+          );
+      });
+    }
+
+
 }
