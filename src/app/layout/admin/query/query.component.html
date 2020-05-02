@@ -13,18 +13,19 @@
 
   <form [formGroup]="newQueryForm" (ngSubmit)="onSubmitUserDetails(newQueryForm.value)">
       <app-base-form></app-base-form>
+      <input type="hidden" formControlName="fileName">
     <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
       <div fxFlex="40%">
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Fullname</mat-label>
-          <input matInput placeholder="Enter Complainants name..." formControlName="fullname">
+          <input matInput placeholder="Enter Complainants name..." formControlName="fullname" required>
         </mat-form-field>
       </div>
 
       <div fxFlex="25%">
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Phone</mat-label>
-          <input matInput placeholder="Enter Complainants Phone..." formControlName="phone">
+          <input matInput placeholder="Enter Complainants Phone..." formControlName="phone" required>
         </mat-form-field>
       </div>
     </div>
@@ -50,7 +51,7 @@
       <div fxFlex="15%">
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Stan Number</mat-label>
-          <input matInput placeholder="Stan Number" formControlName="stanNo"  >
+          <input matInput placeholder="Stan Number" formControlName="stanNo"  required>
         </mat-form-field>
       </div>
     </div>
@@ -74,7 +75,7 @@
       <div fxFlex="30%">
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Priority</mat-label>
-          <mat-select placeholder="Priority" formControlName="priority"  >
+          <mat-select placeholder="Priority" formControlName="priority"  required>
             <!-- <mat-option *ngFor="let key of priorityKeys" [value]="priority[key]">
               {{ priority[key] }}
             </mat-option> -->
@@ -113,7 +114,7 @@
       <div fxFlex="50%">
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Short Description</mat-label>
-          <input matInput placeholder="Stan Number" formControlName="description"  >
+          <input matInput placeholder="Description" formControlName="description"  >
         </mat-form-field>
       </div>
       </div>
@@ -131,15 +132,21 @@
       </div>
 
   
-    <div class="parent" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
+  
 
+    <div *ngIf="filePath !== '' && filePath !== undefined && filePath !== null" class="parent" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
       <div fxFlex="12%">
-        <p>
+        <h5>
           <mat-label class="full-width">Attchmemnts</mat-label>
-        </p>
+        </h5>
       </div>
-      <div fxFlex="20%">
-      </div>
+      <div fxFlex="55%">
+      <mat-card>
+        <!-- <h3>Files ({{row.fileInfos.length}})</h3> -->
+      <a href="{{this.global.baseUrl}}/api/query/file?filePath={{filePath}}" (click)="fileOk()" mat-stroked-button target="_blank">{{selectedQuery.fileName}}
+      </a>
+    </mat-card>
+    </div>
     </div>
     <!--  removed [disabled]="role.selected" -->
     <br>
@@ -150,7 +157,7 @@
 
       </div>
       <div fxFlex="70%">
-        <button type="button" mat-stroked-button class="btn-md" [disabled]="!newQueryForm.valid" color="primary" (click)="openUploadDialog(newQueryForm.value.id)">Upload File</button>&nbsp;
+        <button type="button" mat-stroked-button class="btn-md" [disabled]="newQueryForm.value.id == null || newQueryForm.value.fileName != null" color="primary" (click)="openUploadDialog(newQueryForm.value.id)">Upload File</button>&nbsp;
         <button type="submit" mat-raised-button class="btn-md" [disabled]="!newQueryForm.valid" color="accent">Save</button>&nbsp;
         <button routerLink="/admin/user/list" type="button" mat-raised-button class="btn-md" color="warn">Cancel</button>
       </div>

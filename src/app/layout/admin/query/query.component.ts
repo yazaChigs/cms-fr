@@ -11,6 +11,7 @@ import { Gender } from 'src/app/shared/enums/gender';
 import { Priority } from 'src/app/shared/enums/priority';
 import { MatDialog } from '@angular/material';
 import { UploadFileDialogComponent } from '../upload-file-dialog/upload-file-dialog.component';
+import { Global } from 'src/app/global';
 
 @Component({
   selector: 'app-query',
@@ -28,15 +29,16 @@ export class QueryComponent implements OnInit {
   statusKeys: any[];
   priority = Priority;
   priorityKeys: any[];
+  filePath: '';
   compareFn: ((f1: any, f2: any) => boolean) | null = this.compareByValue;
   sub: any;
   queryId: number;
-  selectedQuery: any;
+  selectedQuery: any = {};
   user: any;
 
   constructor( private fb: FormBuilder, private snotify: SnotifyService, private service: CrudService,
                private router: Router,  private route: ActivatedRoute, private branchService: BranchService,
-               public dialog: MatDialog, ) {
+               public dialog: MatDialog , public global: Global ) {
                 this.user = JSON.parse(localStorage.getItem('USER'));
                 this.sub = this.route
                 .queryParams
@@ -81,6 +83,7 @@ export class QueryComponent implements OnInit {
     description: new FormControl(),
     phoneHome: new FormControl(),
     phoneBusiness: new FormControl(),
+    fileName: new FormControl(),
     });
   }
 
@@ -94,7 +97,9 @@ export class QueryComponent implements OnInit {
           'Success',
           this.util.getNotifyConfig()
         );
-        this.router.navigate(['/query-list']);
+        // this.router.navigate(['/query-list']);
+        this.populateForm(result.data);
+        console.log(result.data);
       },
       error => {
         const errorObject = error.error;
@@ -112,6 +117,15 @@ export class QueryComponent implements OnInit {
   compareByValue(f1: any, f2: any) {
     return f1 && f2 && f1.id === f2.id;
   }
+
+  fileOk() {
+    this.snotify.info(
+      'getting file, please wait...',
+      'Information',
+      this.util.getNotifyConfig()
+    );
+  }
+
   fetchBranches() {
     // this.branchService.getAll().subscribe(
     //   result => {
@@ -125,10 +139,8 @@ export class QueryComponent implements OnInit {
     }
 
     fetchCategories(value) {
-      console.log(value);
       this.service.getAll('/category/get-all-by-type?type=' + value).subscribe(
         data => {
-          console.log(data);
           this.categories = data;
         },
       error => {
@@ -138,6 +150,9 @@ export class QueryComponent implements OnInit {
 
       populateForm(value) {
         if (value !== null && value !== undefined) {
+          if (value.fileInfos.length !== 0 && value.fileInfos!== null && value.fileInfos !== undefined) {
+            this.filePath = value.fileInfos[0].path;
+          }
           this.newQueryForm.get('id').setValue(value.id);
           this.newQueryForm.get('timeCreated').setValue(value.timeCreated);
           this.newQueryForm.get('dateCreated').setValue(value.dateCreated);
@@ -156,6 +171,7 @@ export class QueryComponent implements OnInit {
           this.newQueryForm.get('description').setValue(value.description);
           this.newQueryForm.get('phoneHome').setValue(value.phoneHome);
           this.newQueryForm.get('phoneBusiness').setValue(value.phoneBusiness);
+          this.newQueryForm.get('fileName').setValue(value.fileName);
         }
       }
 
@@ -172,6 +188,7 @@ export class QueryComponent implements OnInit {
         });
       }
       openUploadDialog(id): void {
+        console.log(id);
         const dialogRef = this.dialog.open(UploadFileDialogComponent, {
           width: '850px',
           data: {id}
@@ -179,6 +196,7 @@ export class QueryComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
           // this.animal = result;
+          this.router.navigate(['/query-list']);
         });
       }
 }

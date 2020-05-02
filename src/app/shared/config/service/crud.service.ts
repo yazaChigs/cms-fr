@@ -54,7 +54,7 @@ export class CrudService implements BaseService {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('id', id);
-    return this.http.post<any>(url, formData);
+    return this.http.post<any>(this.baseUrl + url, formData);
   }
 
 }
