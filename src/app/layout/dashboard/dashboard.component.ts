@@ -1,6 +1,6 @@
 
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
-import { map, first } from 'rxjs/operators';
+import { map, first, startWith } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
 import { StorageKey } from 'src/app/util/key';
@@ -27,6 +27,14 @@ import * as Chart from 'chart.js';
 import { Label, Color, BaseChartDirective } from 'ng2-charts';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
+import { Observable } from 'rxjs';
+// export interface User {
+//   name: string;
+// }
+
+export class State {
+  constructor(public name: string, public population: string, public flag: string) { }
+}
 
 @Component({
   // encapsulation: ViewEncapsulation.Native,
@@ -39,6 +47,7 @@ export class DashboardComponent implements OnInit {
   dashForm: FormGroup;
   color = 'blue';
   roles: string[];
+  overDue = 0;
   util;
   list: any[];
   user: any;
@@ -46,6 +55,7 @@ export class DashboardComponent implements OnInit {
   randomColor1 = '#' + ((1 << 24) * Math.random() | 0).toString(16);
   randomColor2 = '#' + ((1 << 24) * Math.random() | 0).toString(16);
   randomColor3 = '#' + ((1 << 24) * Math.random() | 0).toString(16);
+  randomColor5 = '#' + ((1 << 24) * Math.random() | 0).toString(16);
   randomColor4 = '#' + ((1 << 24) * Math.random() | 0).toString(16);
 
   // pie
@@ -179,50 +189,90 @@ export class DashboardComponent implements OnInit {
   public lineChartLegend = true;
   public lineChartType = 'line';
   public lineChartPlugins = [pluginAnnotations];
-
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
 
+  myControl = new FormControl();
+  options: any[] = [];
+  filteredOptions: Observable<any[]>;
 
 
   constructor(private breakpointObserver: BreakpointObserver, private router: Router, private dataManService: DataManagementService,
               private fb: FormBuilder, private availableStockService: AvailableStockService, private branchService: BranchService,
-              private dashService: DashboardService, private service: CrudService, private snotify: SnotifyService) { }
+              private dashService: DashboardService, private service: CrudService, private snotify: SnotifyService, 
+               ) { 
+                this.roles = JSON.parse(sessionStorage.getItem(StorageKey.GRANTED_AUTHORITIES));
+              }
   redirect(value) {
+
     this.router.navigate([value]);
   }
 
 
   ngOnInit(): void {
-    this.fetchQuiries()
+    this.util = new NotifyUtil(this.snotify);
+    this.fetchQuiries();
     this.fetchStats();
-      //   this.branchId = Number(localStorage.getItem('BRANCH_ID'));
-  //   this.setYesterdayDate();
-  //   this.createFormBloodStockManagementAnalysisForm();
-  //   // this.getNoDaysRequrements();
-  //   this.getAvailableStockForm();
-  //   this.getQuarantinedStock();
-  //   this.getBranchDailyMinimalCapacity();
-  //   this.createFilterDataForm();
-  //   this.getAllUnSubmitedQuarantineStock();
-  //   this.getAllUnSubmitedAvailableStock();
-  //   this.util = new NotifyUtil(this.snotify);
+    this.getCompleted();
+}
+private _filter(value: any): string[] {
+  const filterValue = value.toLowerCase();
+  return this.options.filter(option => option.stanNo.toLowerCase().includes(filterValue));
+}
 
-    // this.user = JSON.parse(localStorage.getItem('USER'));
-  //   this.roles = JSON.parse(sessionStorage.getItem(StorageKey.GRANTED_AUTHORITIES));
-  // //   if (this.roles.includes('ROLE_USER') || this.roles.includes('ROLE_SUPERVISOR')) {
-  // //     this.getUserBranch();
-  // //   } else {
-  //   this.getAllBranches();
-  // }
-  }
-  fetchQuiries() {
-    this.service.getAll('/query/get-all').subscribe(
+findByResult(value) {
+  console.log(value)
+  this.service.getItem('/query/get-by-stan?id=' + value).subscribe(
+    data => {
+      console.log(data);
+      this.list.push(data);
+    } ,
+    error => {
+     console.log(error);
+    });
+    }
+
+  fetchQuiries(): any[] {
+     this.service.getAll('/query/get-all').subscribe(
       data => {
         this.list = data;
+        this.options = data;
+        this.filteredOptions = this.myControl.valueChanges
+    .pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
       },
     error => {
      console.log(error);
     });
+     return this.list;
+    }
+
+    fetchOverDueQuiries() {
+      this.service.getAll('/query/get-all-overdue').subscribe(
+        data => {
+          console.log(data);
+          this.overDue = data.length;
+        },
+      error => {
+       console.log(error);
+      });
+      }
+
+    getCompleted() {
+      console.log(this.roles);
+      if(this.roles.includes('ROLE_BRANCH_OFFICER')) {
+        this.service.getItem('/task/is-there-complete').subscribe(
+          result => {
+            if (result !== null) {
+              this.snotify.info(result + 'of your queries completed', 'Info', this.util.getNotifyConfig());
+            }
+          },
+          error => {
+            console.log(error.error);
+          }
+        );
+      }
     }
 
     fetchStats() {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Branch } from 'src/app/shared/config/model/admin/branch.model';
 import { BranchService } from '../../../shared/config/service/admin/branch.service';
 import { CrudService } from 'src/app/shared/config/service/crud.service';
@@ -68,7 +68,11 @@ export class QueryComponent implements OnInit {
     version: new FormControl(),
     createdById: new FormControl(),
     fullname: new FormControl(),
-    phone: new FormControl(),
+    phone: new FormControl('',
+    Validators.compose([
+      Validators.required,
+      Validators.pattern('^[0-9]{10}$')
+    ])),
     priority: new FormControl(),
     status: new FormControl({value: 'WAITING'}),
     accountNumber: new FormControl(),
@@ -78,10 +82,16 @@ export class QueryComponent implements OnInit {
     }),
     category: new FormControl(),
     queryType: new FormControl(),
-    stanNo: new FormControl(),
+    stanNo: new FormControl('',
+    Validators.compose([
+      Validators.required,
+      Validators.pattern('^[0-9]{6}$')
+    ])),
     complaintDetails: new FormControl(),
     description: new FormControl(),
     phoneHome: new FormControl(),
+    amount: new FormControl(),
+    actionTaken: new FormControl(),
     phoneBusiness: new FormControl(),
     fileName: new FormControl(),
     });
@@ -99,7 +109,7 @@ export class QueryComponent implements OnInit {
         );
         // this.router.navigate(['/query-list']);
         this.populateForm(result.data);
-        console.log(result.data);
+        this.openUploadDialog(result.data.id);
       },
       error => {
         const errorObject = error.error;
@@ -164,6 +174,7 @@ export class QueryComponent implements OnInit {
           this.newQueryForm.get('status').setValue(value.status);
           this.newQueryForm.get('accountNumber').setValue(value.accountNumber);
           this.newQueryForm.get('branch').setValue(this.user.branch);
+          this.newQueryForm.get('amount').setValue(this.user.amount);
           this.newQueryForm.get('category').setValue(value.category);
           this.newQueryForm.get('queryType').setValue(value.queryType);
           this.newQueryForm.get('stanNo').setValue(value.stanNo);
@@ -187,15 +198,15 @@ export class QueryComponent implements OnInit {
          console.log(error);
         });
       }
+
       openUploadDialog(id): void {
-        console.log(id);
         const dialogRef = this.dialog.open(UploadFileDialogComponent, {
           width: '850px',
           data: {id}
         });
         dialogRef.afterClosed().subscribe(result => {
-          console.log('The dialog was closed');
-          // this.animal = result;
+          // console.log('The dialog was closed');
+          // // this.animal = result;
           this.router.navigate(['/query-list']);
         });
       }

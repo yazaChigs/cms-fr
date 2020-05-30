@@ -93,7 +93,7 @@
 </div>
 </div>
 
-<div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+<!-- <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
   <div fxFlex="85%">
 <mat-card class="card-padding">
   <mat-toolbar color="accent">
@@ -184,7 +184,7 @@
       </ngx-datatable-column>
     </ngx-datatable>
 </div>
-</div>
+</div> -->
 
 <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
   <div fxFlex="85%">
@@ -337,6 +337,14 @@
               {{row.branch?.branchName | uppercase}}
           </ng-template>
       </ngx-datatable-column>
+      <ngx-datatable-column>
+        <ng-template let-column="column" ngx-datatable-header-template>
+           Action Taken
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+            {{row.actionTaken}}
+        </ng-template>
+    </ngx-datatable-column>
     <ngx-datatable-column>
       <ng-template let-column="column" ngx-datatable-header-template>
          Priority
@@ -345,18 +353,18 @@
           {{row.priority}}
       </ng-template>
   </ngx-datatable-column>
-        <ngx-datatable-column *ngIf="roles.includes('ROLE_MANAGER')">
+        <!-- <ngx-datatable-column *ngIf="roles.includes('ROLE_MANAGER')">
             <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
                 <div class="button-row">
                     <button mat-icon-button (click)="sendMessageToUser(row)">
                         <mat-icon>mail_outline</mat-icon>
                       </button>
-                      <!-- <button mat-icon-button color="warn" (click)="deleteQuery(row.id, rowIndex)">
+                      <button mat-icon-button color="warn" (click)="deleteQuery(row.id, rowIndex)">
                         <mat-icon>delete</mat-icon>
-                      </button> -->
+                      </button>
                 </div>
             </ng-template>
-        </ngx-datatable-column>
+        </ngx-datatable-column> -->
         <!-- <ngx-datatable-column *ngIf="roles.includes('ROLE_BRANCH_OFFICER')">
           <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
               <div class="button-row">

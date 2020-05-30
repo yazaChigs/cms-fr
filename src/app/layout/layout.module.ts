@@ -37,12 +37,13 @@ import { TaskComponent } from './admin/task/task.component';
 import { ExportAsModule } from 'ngx-export-as';
 import { UploadFileDialogComponent } from './admin/upload-file-dialog/upload-file-dialog.component';
 import { FileDropModule } from 'ngx-file-drop';
+import { DynamicAutocompleteComponent } from './admin/dynamic-autocomplete/dynamic-autocomplete.component';
 
 @NgModule({
   declarations: [
     MainComponent,
     SideNavComponent, DeemandVsSupplyComponent, StockesChartComponent, CollectionsChartComponent,
-    DashboardComponent, BranchContributionsComponent, QueryComponent, UploadFileDialogComponent,
+    DashboardComponent, BranchContributionsComponent, QueryComponent, UploadFileDialogComponent, DynamicAutocompleteComponent,
     ChangePasswordDialogComponent, BloodGroupDaysSupplyComponent, QueryListComponent, TaskListComponent, TaskComponent
   ],
   imports: [

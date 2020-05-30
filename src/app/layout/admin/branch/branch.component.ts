@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { BranchService } from '../../../shared/config/service/admin/branch.service';
 import { SnotifyService } from 'ng-snotify';
 import { NotifyUtil } from 'src/app/util/notifyutil';
@@ -36,7 +36,11 @@ export class BranchComponent implements OnInit {
       createdById: new FormControl(),
       branchName: new FormControl(),
       address: new FormControl(),
-      phoneNumber: new FormControl(),
+      phoneNumber: new FormControl('',
+      Validators.compose([
+        Validators.required,
+        Validators.pattern('^[0-9]{10}$')
+      ])),
       officePhone: new FormControl(),
       });
     }

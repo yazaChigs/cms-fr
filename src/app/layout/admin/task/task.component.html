@@ -23,16 +23,16 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div fxFlex="20%">
+    <!-- <div fxFlex="20%">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Expected Spent time(h)</mat-label>
         <input matInput disabled placeholder="Branch Address" formControlName="spentTime" type="number" required>
       </mat-form-field>
-    </div>
+    </div> -->
     <div fxFlex="20%">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Actual time spent(h)</mat-label>
-        <input matInput placeholder="Branch Address" formControlName="actualTimeSpent" type="number"  required>
+        <input matInput placeholder="Branch Address" formControlName="actualTimeSpent" type="number" disabled required>
       </mat-form-field>
     </div>
   </div>
@@ -64,6 +64,16 @@
             <mat-option value="WAITING">WAITING</mat-option>
             <mat-option value="PENDING">PENDING</mat-option>
             <mat-option value="RESOLVED">RESOLVED</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxFlex="25%">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Action taken</mat-label>
+          <mat-select placeholder="Status" formControlName="actionTaken"  required>
+            <mat-option value="Account credited">Account credited</mat-option>
+            <mat-option value="Account debited">Account debited</mat-option>
+            <mat-option value="No action taken">No action taken</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

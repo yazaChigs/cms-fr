@@ -252,7 +252,12 @@ export class AddUserComponent implements OnInit, AfterViewInit, OnDestroy {
       // dateOfBirth: new FormControl(),
       // age: new FormControl(''),
       gender: new FormControl(),
-      phoneCell: new FormControl(''),
+      phoneCell: new FormControl('',
+      Validators.compose([
+        Validators.required,
+        Validators.pattern('^[0-9]{10}$')
+      ])),
+
       // phoneHome: new FormControl(''),
       phoneBusiness: new FormControl(''),
       // country: new FormControl(''),

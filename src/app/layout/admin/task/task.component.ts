@@ -69,7 +69,7 @@ export class TaskComponent implements OnInit, OnDestroy  {
       this.taskForm.get('assignee').setValue(this.user[0]);
       this.taskForm.get('priority').setValue(this.task.priority);
       this.taskForm.get('status').patchValue(this.task.status);
-      this.taskForm.get('spentTime').setValue(this.task.spentTime);
+      this.taskForm.get('actionTaken').setValue(this.task.actionTaken);
       this.taskForm.get('startTime').setValue(this.task.startTime);
       this.taskForm.get('query').setValue(this.task.query);
       this.taskForm.get('actualTimeSpent').setValue(this.task.actualTimeSpent);
@@ -128,7 +128,7 @@ export class TaskComponent implements OnInit, OnDestroy  {
       managersNotes: new FormControl(),
       working: new FormControl(),
       assigneeNotes: new FormControl(),
-      spentTime: new FormControl(),
+      actionTaken: new FormControl(),
       startTime: new FormControl(),
       actualTimeSpent: new FormControl(),
       query: new FormControl(),
@@ -155,6 +155,11 @@ export class TaskComponent implements OnInit, OnDestroy  {
           'Success',
           this.util.getNotifyConfig()
         );
+        this.snotify.success(
+          result.text,
+          'Success',
+          this.util.getNotifyConfig()
+        );
         this.router.navigate(['/tasks']);
       },
       error => {
@@ -169,6 +174,9 @@ export class TaskComponent implements OnInit, OnDestroy  {
         );
       }
     );
+  }
+
+  sendMessageToUser() {
   }
 
   updateValues(value) {

@@ -25,11 +25,11 @@
     </div> -->
     <mat-nav-list >
         <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link" class="bb" ><mat-icon class="sidenav-icon" color="primary">dashboard</mat-icon>Dashboard</a>
-        <a *ngIf="roles.includes('ROLE_MANAGER')|| roles.includes('ROLE_GLOBAL')" mat-list-item routerLink="/admin" routerLinkActive="active-link" class="bb" ><mat-icon class="sidenav-icon" color="primary">dashboard</mat-icon>Admin</a>
-        <a *ngIf="roles.includes('ROLE_E_BANKING')" mat-list-item routerLink="/tasks" routerLinkActive="active-link" class="bb" ><mat-icon class="sidenav-icon" color="primary">all_inbox</mat-icon>My Tasks</a>
-        <a *ngIf="roles.includes('ROLE_BRANCH_OFFICER')" mat-list-item routerLink="/queries" routerLinkActive="active-link" class="bb" ><mat-icon class="sidenav-icon" color="primary">bookmarks</mat-icon>Lodge Complaint</a>
-        <a mat-list-item routerLink="/query-list" routerLinkActive="active-link" class="bb" ><mat-icon class="sidenav-icon" color="primary">bookmarks</mat-icon>Complaint History</a>
-        <a mat-list-item routerLink="/admin/category" routerLinkActive="active-link" class="bb" ><mat-icon class="sidenav-icon" color="primary">bookmarks</mat-icon>Category</a>
+        <a *ngIf="roles.includes('ROLE_MANAGER')|| roles.includes('ROLE_GLOBAL')" mat-list-item routerLink="/admin" routerLinkActive="active-link" class="bb" ><mat-icon class="sidenav-icon" color="primary">admin_panel_settings</mat-icon>Admin</a>
+        <a *ngIf="roles.includes('ROLE_E_BANKING')" mat-list-item routerLink="/tasks" routerLinkActive="active-link" class="bb" ><mat-icon class="sidenav-icon" color="primary">work</mat-icon>My Tasks</a>
+        <a *ngIf="roles.includes('ROLE_BRANCH_OFFICER')" mat-list-item routerLink="/queries" routerLinkActive="active-link" class="bb" ><mat-icon class="sidenav-icon" color="primary">library_add</mat-icon>Lodge Complaint</a>
+        <a mat-list-item routerLink="/query-list" routerLinkActive="active-link" class="bb" ><mat-icon class="sidenav-icon" color="primary">history</mat-icon>Complaint History</a>
+        <a *ngIf="roles.includes('ROLE_MANAGER')|| roles.includes('ROLE_GLOBAL')" mat-list-item routerLink="/admin/category" routerLinkActive="active-link" class="bb" ><mat-icon class="sidenav-icon" color="primary">view_carousel</mat-icon>Category</a>
         <!-- <a *ngIf="roles.includes('ROLE_ADMIN') || roles.includes('ROLE_GLOBAL')"  mat-list-item routerLink="/admin" routerLinkActive="active-link" class="bb"><mat-icon class="sidenav-icon" color="primary">chrome_reader_mode</mat-icon>Admin</a> -->
       <!-- <a mat-list-item *ngFor="let card of list" routerLink="{{card.link}}" routerLinkActive="active-link" ><mat-icon class="sidenav-icon" color="primary">{{card.icon}}</mat-icon>{{card.title}}</a> -->
       </mat-nav-list>
@@ -55,8 +55,8 @@
         </button>
         <div style="margin-left: 5%" fxShow="true" fxHide.lt-md>
           <a routerLink="/dashboard" routerLinkActive="active-link"  mat-stroked-button><mat-icon class="sidenav-icon">dashboard</mat-icon>Home</a>
-          <a routerLink="/query-list" routerLinkActive="active-link"  mat-stroked-button><mat-icon class="sidenav-icon">all_inbox</mat-icon>Queries</a>
-          <a routerLink="/admin/category" routerLinkActive="active-link"  mat-stroked-button><mat-icon class="sidenav-icon">bookmarks</mat-icon>categories</a>
+          <a routerLink="/query-list" routerLinkActive="active-link"  mat-stroked-button><mat-icon class="sidenav-icon">announcement</mat-icon>Queries</a>
+          <a *ngIf="roles.includes('ROLE_MANAGER')|| roles.includes('ROLE_GLOBAL')" routerLink="/admin/category" routerLinkActive="active-link"  mat-stroked-button><mat-icon class="sidenav-icon">view_carousel</mat-icon>categories</a>
           <!-- <a routerLink="/quarantined" routerLinkActive="active-link"  mat-stroked-button><mat-icon class="sidenav-icon">bookmarks</mat-icon>Electronic Bankin</a> -->
           <!-- <a *ngIf="roles.includes('ROLE_ADMIN') || roles.includes('ROLE_GLOBAL')" routerLink="/admin" routerLinkActive="active-link"  mat-stroked-button><mat-icon class="sidenav-icon">chrome_reader_mode</mat-icon>Admin</a> -->
         <!-- <a *ngFor="let card of modules" routerLink="{{card.link}}" routerLinkActive="active-link"  mat-stroked-button>
