@@ -39,7 +39,7 @@ export class TaskDialogComponent implements OnInit {
   ngOnInit() {
     console.log(this.data);
     this.getTask();
-    this.createForm();
+    // this.createForm();
     // this.getUsersByManager();
     this.util = new NotifyUtil(this.snotify);
   }
@@ -71,7 +71,7 @@ export class TaskDialogComponent implements OnInit {
         console.log(data);
         if (this.task !== null && this.task !== undefined) {
           this.users.push(data.assignee);
-          this.taskForm.get('assignee').setValue(this.users[0]);
+          // this.taskForm.get('assignee').setValue(this.users[0]);
         } else {
           this.getUsersByManager();
         }

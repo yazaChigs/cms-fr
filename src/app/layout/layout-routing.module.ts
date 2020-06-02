@@ -12,6 +12,7 @@ import { QueryListComponent } from './admin/query-list/query-list.component';
 import { CategoryListComponent } from './admin/category-list/category-list.component';
 import { TaskListComponent } from './admin/task-list/task-list.component';
 import { TaskComponent } from './admin/task/task.component';
+import { MyQueriesComponent } from './admin/my-queries/my-queries.component';
 
 
 const routes: Routes = [
@@ -24,6 +25,7 @@ const routes: Routes = [
       { path: 'tasks', component: TaskListComponent },
       { path: 'task-edit', component: TaskComponent },
       { path: 'queries', component: QueryComponent },
+      { path: 'my-queries', component: MyQueriesComponent },
       { path: 'query-list', component: QueryListComponent },
       // { path: 'category', component: CategoryListComponent },
       {

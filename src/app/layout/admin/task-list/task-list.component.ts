@@ -8,6 +8,9 @@ import { StorageKey } from 'src/app/util/key';
 import { User } from 'src/app/shared/config/model/admin/user.model';
 import { Global } from 'src/app/global';
 import { ExportAsService, ExportAsConfig, SupportedExtensions } from 'ngx-export-as';
+import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
+import { Label } from 'ng2-charts';
+import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 
 @Component({
   selector: 'app-task-list',
@@ -32,6 +35,30 @@ export class TaskListComponent implements OnInit {
       pdfCallbackFn: this.pdfCallbackFn // to add header and footer
     }
   };
+  public pieChartOptions: ChartOptions = {
+    responsive: true,
+    legend: {
+      position: 'top',
+    },
+    plugins: {
+      datalabels: {
+        formatter: (value, ctx) => {
+          const label = ctx.chart.data.labels[ctx.dataIndex];
+          return label;
+        },
+      },
+    }
+  };
+  public pieChartLabels: Label[] = ['Pending', 'Resolved'];
+  public pieChartData: number[] = [300, 500];
+  public pieChartType: ChartType = 'pie';
+  public pieChartLegend = true;
+  public pieChartPlugins = [pluginDataLabels];
+  public pieChartColors = [
+    {
+      backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)'],
+    },
+  ];
 
   constructor( private excelService: ExcelExportService, private service: CrudService,  private exportAsService: ExportAsService,
                private router: Router, private snotify: SnotifyService,  public global: Global, ) {
@@ -44,6 +71,7 @@ export class TaskListComponent implements OnInit {
     this.fetchTasks();
     this.getMyTasks();
     this.fetchOverdue();
+    this.getStats();
   }
 
   fetchTasks() {
@@ -82,6 +110,19 @@ export class TaskListComponent implements OnInit {
       error => {
        console.log(error);
       }
+      );
+    }
+    getStats() {
+      this.service.getItem('/task/get-assignee-stats').subscribe(
+        data => {
+        console.log(data);
+        this.pieChartData = [];
+        this.pieChartData.push(data.pending);
+        this.pieChartData.push(data.resolved);
+      },
+        error => {
+          console.log(error.error);
+        }
       );
     }
      editTasks(value) {

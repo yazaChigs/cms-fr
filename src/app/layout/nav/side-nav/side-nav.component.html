@@ -25,9 +25,10 @@
     </div> -->
     <mat-nav-list >
         <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link" class="bb" ><mat-icon class="sidenav-icon" color="primary">dashboard</mat-icon>Dashboard</a>
-        <a *ngIf="roles.includes('ROLE_MANAGER')|| roles.includes('ROLE_GLOBAL')" mat-list-item routerLink="/admin" routerLinkActive="active-link" class="bb" ><mat-icon class="sidenav-icon" color="primary">admin_panel_settings</mat-icon>Admin</a>
+        <a *ngIf="roles.includes('ROLE_MANAGER')|| roles.includes('ROLE_GLOBAL')" mat-list-item routerLink="/admin" routerLinkActive="active-link" class="bb" ><mat-icon class="sidenav-icon" color="primary">trending_flat</mat-icon>Admin</a>
         <a *ngIf="roles.includes('ROLE_E_BANKING')" mat-list-item routerLink="/tasks" routerLinkActive="active-link" class="bb" ><mat-icon class="sidenav-icon" color="primary">work</mat-icon>My Tasks</a>
         <a *ngIf="roles.includes('ROLE_BRANCH_OFFICER')" mat-list-item routerLink="/queries" routerLinkActive="active-link" class="bb" ><mat-icon class="sidenav-icon" color="primary">library_add</mat-icon>Lodge Complaint</a>
+        <a *ngIf="roles.includes('ROLE_BRANCH_OFFICER')" mat-list-item routerLink="/my-queries" routerLinkActive="active-link" class="bb" ><mat-icon class="sidenav-icon" color="primary">person</mat-icon>My Queries</a>
         <a mat-list-item routerLink="/query-list" routerLinkActive="active-link" class="bb" ><mat-icon class="sidenav-icon" color="primary">history</mat-icon>Complaint History</a>
         <a *ngIf="roles.includes('ROLE_MANAGER')|| roles.includes('ROLE_GLOBAL')" mat-list-item routerLink="/admin/category" routerLinkActive="active-link" class="bb" ><mat-icon class="sidenav-icon" color="primary">view_carousel</mat-icon>Category</a>
         <!-- <a *ngIf="roles.includes('ROLE_ADMIN') || roles.includes('ROLE_GLOBAL')"  mat-list-item routerLink="/admin" routerLinkActive="active-link" class="bb"><mat-icon class="sidenav-icon" color="primary">chrome_reader_mode</mat-icon>Admin</a> -->

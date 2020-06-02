@@ -33,7 +33,7 @@ export class UploadFileDialogComponent implements OnInit {
     }
 
   onNoClick(): void {
-    this.dialogRef.close();
+    // this.dialogRef.close();
   }
 
   onSubmitForm(value) {

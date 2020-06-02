@@ -35,6 +35,22 @@
         </ngx-datatable-column>
         <ngx-datatable-column>
           <ng-template let-column="column" ngx-datatable-header-template>
+              Stan No.
+          </ng-template>
+          <ng-template let-row="row" ngx-datatable-cell-template>
+               {{row.stanNo}}
+          </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column>
+        <ng-template let-column="column" ngx-datatable-header-template>
+            Amount
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+             {{row.amount}}
+        </ng-template>
+    </ngx-datatable-column>
+        <ngx-datatable-column>
+          <ng-template let-column="column" ngx-datatable-header-template>
               Query Type
           </ng-template>
           <ng-template let-row="row" ngx-datatable-cell-template>
@@ -69,7 +85,7 @@
             <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
                 <div class="button-row">
                     <button mat-icon-button (click)="openDialog(row)">
-                        <mat-icon>border_color</mat-icon>
+                        <mat-icon>view_quilt</mat-icon>
                       </button>
                       <button mat-icon-button color="warn" (click)="deleteQuery(row.id, rowIndex)">
                         <mat-icon>delete</mat-icon>
@@ -223,6 +239,22 @@
         </ngx-datatable-column>
         <ngx-datatable-column>
           <ng-template let-column="column" ngx-datatable-header-template>
+              Stan No.
+          </ng-template>
+          <ng-template let-row="row" ngx-datatable-cell-template>
+               {{row.stanNo}}
+          </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column>
+        <ng-template let-column="column" ngx-datatable-header-template>
+            Amount
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+             {{row.amount}}
+        </ng-template>
+    </ngx-datatable-column>
+        <ngx-datatable-column>
+          <ng-template let-column="column" ngx-datatable-header-template>
               Query Type
           </ng-template>
           <ng-template let-row="row" ngx-datatable-cell-template>
@@ -315,6 +347,22 @@
         </ngx-datatable-column>
         <ngx-datatable-column>
           <ng-template let-column="column" ngx-datatable-header-template>
+              Stan No.
+          </ng-template>
+          <ng-template let-row="row" ngx-datatable-cell-template>
+               {{row.stanNo}}
+          </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column>
+        <ng-template let-column="column" ngx-datatable-header-template>
+            Amount
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+             {{row.amount}}
+        </ng-template>
+    </ngx-datatable-column>
+        <ngx-datatable-column>
+          <ng-template let-column="column" ngx-datatable-header-template>
               Query Type
           </ng-template>
           <ng-template let-row="row" ngx-datatable-cell-template>
@@ -353,30 +401,30 @@
           {{row.priority}}
       </ng-template>
   </ngx-datatable-column>
-        <!-- <ngx-datatable-column *ngIf="roles.includes('ROLE_MANAGER')">
+        <ngx-datatable-column *ngIf="roles.includes('ROLE_MANAGER')">
             <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
                 <div class="button-row">
-                    <button mat-icon-button (click)="sendMessageToUser(row)">
-                        <mat-icon>mail_outline</mat-icon>
+                    <button mat-icon-button (click)="openDialog(row)">
+                        <mat-icon>view_quilt</mat-icon>
                       </button>
                       <button mat-icon-button color="warn" (click)="deleteQuery(row.id, rowIndex)">
                         <mat-icon>delete</mat-icon>
                       </button>
                 </div>
             </ng-template>
-        </ngx-datatable-column> -->
-        <!-- <ngx-datatable-column *ngIf="roles.includes('ROLE_BRANCH_OFFICER')">
+        </ngx-datatable-column>
+        <ngx-datatable-column *ngIf="roles.includes('ROLE_BRANCH_OFFICER')">
           <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
               <div class="button-row">
                   <button mat-icon-button (click)="editQuery(row.id)">
-                      <mat-icon>mail_outline</mat-icon>
+                      <mat-icon>border_color</mat-icon>
                     </button>
                     <button mat-icon-button color="warn" (click)="deleteQuery(row.id, rowIndex)">
                       <mat-icon>delete</mat-icon>
                     </button>
               </div>
           </ng-template>
-      </ngx-datatable-column> -->
+      </ngx-datatable-column>
     </ngx-datatable>
 </div>
 </div>

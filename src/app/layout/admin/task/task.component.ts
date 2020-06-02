@@ -143,11 +143,14 @@ export class TaskComponent implements OnInit, OnDestroy  {
      console.log(error);
     });
   }
+  get f() { return this.taskForm.controls; }
+
   compareByValue(f1: any, f2: any) {
     return f1 && f2 && f1.id === f2.id;
   }
   submitValues(value) {
     value.status = 'RESOLVED';
+    console.log(value);
     this.service.save(value, '/task/save').subscribe(
       result => {
         this.snotify.success(
@@ -163,6 +166,7 @@ export class TaskComponent implements OnInit, OnDestroy  {
         this.router.navigate(['/tasks']);
       },
       error => {
+        console.log(error.error);
         const errorObject = error.error;
         if (error.status === 400) {
           this.serverError = errorObject;

@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatGridListModule,
    MatCardModule, MatMenuModule, MatDividerModule, MatDialogModule, MatTooltipModule, MatAutocompleteModule,
-    MatInputModule, MatOptionModule, MatSelectModule, MatChipsModule, MatDatepickerModule, MatNativeDateModule, MatCheckboxModule, MatBadgeModule, MatSlideToggleModule, MatButtonToggleModule } from '@angular/material';
+    MatInputModule, MatOptionModule, MatSelectModule, MatChipsModule, MatDatepickerModule, MatNativeDateModule, MatCheckboxModule, MatBadgeModule, MatSlideToggleModule, MatButtonToggleModule, MatTableModule } from '@angular/material';
 import { SideNavComponent } from './nav/side-nav/side-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { LayoutRoutingModule } from './layout-routing.module';
@@ -38,19 +38,20 @@ import { ExportAsModule } from 'ngx-export-as';
 import { UploadFileDialogComponent } from './admin/upload-file-dialog/upload-file-dialog.component';
 import { FileDropModule } from 'ngx-file-drop';
 import { DynamicAutocompleteComponent } from './admin/dynamic-autocomplete/dynamic-autocomplete.component';
+import { MyQueriesComponent } from './admin/my-queries/my-queries.component';
 
 @NgModule({
   declarations: [
     MainComponent,
     SideNavComponent, DeemandVsSupplyComponent, StockesChartComponent, CollectionsChartComponent,
     DashboardComponent, BranchContributionsComponent, QueryComponent, UploadFileDialogComponent, DynamicAutocompleteComponent,
-    ChangePasswordDialogComponent, BloodGroupDaysSupplyComponent, QueryListComponent, TaskListComponent, TaskComponent
+    ChangePasswordDialogComponent, BloodGroupDaysSupplyComponent, QueryListComponent, TaskListComponent, TaskComponent, MyQueriesComponent
   ],
   imports: [
     CommonModule, ExportAsModule,
     LayoutModule, AdminModule, SharedModule,
     ReactiveFormsModule, FormsModule, MatAutocompleteModule, MatInputModule, MatOptionModule, MatSelectModule,
-    AccessDeniedSharedModule, MatExpansionModule,
+    AccessDeniedSharedModule, MatExpansionModule, MatTableModule,
     LayoutRoutingModule, FlexLayoutModule,
     MatButtonModule,MatSlideToggleModule, MatButtonToggleModule,
     MatToolbarModule, FilterPipeModule,

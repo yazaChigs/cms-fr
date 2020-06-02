@@ -17,7 +17,7 @@ import { StockQuarantined } from '../../shared/config/model/Stock-quarantined.mo
 import { BranchService } from '../../shared/config/service/admin/branch.service';
 import { Branch } from 'src/app/shared/config/model/admin/branch.model';
 import { DashboardService } from 'src/app/shared/config/service/dashboard.service';
-import { MatDatepickerInputEvent } from '@angular/material';
+import { MatDatepickerInputEvent, MatTableDataSource } from '@angular/material';
 import { SnotifyService } from 'ng-snotify';
 import { NotifyUtil } from 'src/app/util/notifyutil';
 import { BloodGroupsDistributionsComponent } from './charts/blood-groups-distributions/blood-groups-distributions.component';
@@ -31,6 +31,19 @@ import { Observable } from 'rxjs';
 // export interface User {
 //   name: string;
 // }
+export interface PeriodicElement {
+  stanNo: string;
+  queryType: number;
+  status: number;
+  category: string;
+  actionTaken: string;
+  amount: string;
+  complainant: string;
+  action: string;
+}
+
+let ELEMENT_DATA: PeriodicElement[] = [
+];
 
 export class State {
   constructor(public name: string, public population: string, public flag: string) { }
@@ -57,6 +70,10 @@ export class DashboardComponent implements OnInit {
   randomColor3 = '#' + ((1 << 24) * Math.random() | 0).toString(16);
   randomColor5 = '#' + ((1 << 24) * Math.random() | 0).toString(16);
   randomColor4 = '#' + ((1 << 24) * Math.random() | 0).toString(16);
+
+  displayedColumns: string[] = ['stanNo', 'queryType', 'status', 'category', 'actionTaken', 'amount', 'complainant', 'action'];
+  // dataSource = new MatTableDataSource(ELEMENT_DATA);
+  dataSource;
 
   // pie
   public pieChartOptions: Chart.ChartOptions = {
@@ -202,10 +219,10 @@ export class DashboardComponent implements OnInit {
                ) { 
                 this.roles = JSON.parse(sessionStorage.getItem(StorageKey.GRANTED_AUTHORITIES));
               }
-  redirect(value) {
+  // redirect(value) {
 
-    this.router.navigate([value]);
-  }
+  //   this.router.navigate([value]);
+  // }
 
 
   ngOnInit(): void {
@@ -213,7 +230,16 @@ export class DashboardComponent implements OnInit {
     this.fetchQuiries();
     this.fetchStats();
     this.getCompleted();
+  }
+
+  ngAfterViewInit() {
+  }
+
+applyFilter(event: Event) {
+  const filterValue = (event.target as HTMLInputElement).value;
+  this.dataSource.filter = filterValue.trim().toLowerCase();
 }
+
 private _filter(value: any): string[] {
   const filterValue = value.toLowerCase();
   return this.options.filter(option => option.stanNo.toLowerCase().includes(filterValue));
@@ -223,8 +249,9 @@ findByResult(value) {
   console.log(value)
   this.service.getItem('/query/get-by-stan?id=' + value).subscribe(
     data => {
-      console.log(data);
+      this.list = [];
       this.list.push(data);
+      this.list = [...this.list]
     } ,
     error => {
      console.log(error);
@@ -235,6 +262,8 @@ findByResult(value) {
      this.service.getAll('/query/get-all').subscribe(
       data => {
         this.list = data;
+        ELEMENT_DATA = data;
+        this.dataSource = new MatTableDataSource(ELEMENT_DATA);
         this.options = data;
         this.filteredOptions = this.myControl.valueChanges
     .pipe(
@@ -290,11 +319,12 @@ findByResult(value) {
       });
       }
 
-    editQuery(userToEdit: any) {
-      // this.service.getItem(userToEdit);
-      this.router.navigate(['query-list']);
+    // editQuery(userToEdit: any) {
+    //   // this.service.getItem(userToEdit);
+    //   this.router.navigate(['query-list']);
+    //  }
+    editQuery(id) {
+      this.router.navigate(['/queries'], { queryParams: { query: id , editable: false} });
      }
-
-    //  pie
 
 }

@@ -29,10 +29,12 @@ import { CategoryComponent } from './category/category.component';
 import { TaskDialogComponent } from './task-dialog/task-dialog.component';
 import { TextMessagingComponent } from './text-messaging/text-messaging/text-messaging.component';
 import { FileDropModule } from 'ngx-file-drop';
+import { MyQueriesComponent } from './my-queries/my-queries.component';
 
 @NgModule({
   declarations: [ BaseAdminComponent, AdminDashboardComponent, DataManagementComponent, BranchComponent, BranchListComponent,
-     AddUserComponent, ListUserComponent, CategoryListComponent, CategoryComponent, TaskDialogComponent, TextMessagingComponent
+     AddUserComponent, ListUserComponent, CategoryListComponent, CategoryComponent, TaskDialogComponent, TextMessagingComponent,
+    //  MyQueriesComponent
   ],
   imports: [
     AdminRoutingModule, SharedModule,

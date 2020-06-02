@@ -17,6 +17,9 @@
         <mat-label>Branch Name</mat-label>
         <input matInput placeholder="Name" formControlName="branchName" oninput="this.value = this.value.toUpperCase()" required>
       </mat-form-field>
+      <div *ngIf="submitted && f.branchName.errors" class="invalid-feedback">
+        <div *ngIf="f.branchName.errors.required">Branch Name is required</div>
+    </div>
     </div>
   </div>
     <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
@@ -49,7 +52,7 @@
       <div fxFlex="20%">
       </div>
       <div fxFlex="40%">
-        <button mat-raised-button class="btn-md" [disabled]="! branchForm.valid" color="primary" (click)="submitValues(branchForm.value)">Save</button>&nbsp;
+        <button mat-raised-button class="btn-md"  color="primary" (click)="submitValues(branchForm.value)">Save</button>&nbsp;
         <button mat-raised-button [routerLink]="['/admin/config/company-profile-list']" routerLinkActive="router-link-active" class="btn-md" color="warn">Cancel</button>
       </div>
     </div>

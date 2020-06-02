@@ -32,6 +32,9 @@
           <mat-label>First name</mat-label>
           <input matInput placeholder="Enter first name..." formControlName="firstName">
         </mat-form-field>
+        <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+          <div *ngIf="f.firstName.errors.required">firstName is required</div>
+      </div>
       </div>
 
       <div fxFlex="25%">
@@ -39,6 +42,9 @@
           <mat-label>Last name</mat-label>
           <input matInput placeholder="Enter last name..." formControlName="lastName">
         </mat-form-field>
+        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+          <div *ngIf="f.lastName.errors.required">lastName is required</div>
+      </div>
       </div>
     </div>
 
@@ -46,11 +52,15 @@
       fxLayoutGap.xs="0">
       <div fxFlex="40%">
         <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Email</mat-label>
+          <mat-label>Username/email</mat-label>
           <input matInput placeholder="Your Username" formControlName="userName"  required>
           <mat-hint *ngIf="serverError?.name"><span class="color-danger">{{serverError.name}}</span></mat-hint>
         </mat-form-field>
       </div>
+      <div *ngIf="submitted && f.userName.errors" class="invalid-feedback">
+        <div *ngIf="f.userName.errors.required">userName is required</div>
+        <div *ngIf="f.userName.errors.pattern">invalid userName</div>
+    </div>
     </div>
 
     <div class="container" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px"
@@ -66,6 +76,9 @@
             <mat-option value="female">female</mat-option>
           </mat-select>
         </mat-form-field>
+        <div *ngIf="submitted && f.gender.errors" class="invalid-feedback">
+          <div *ngIf="f.gender.errors.required">gender is required</div>
+      </div>
       </div>
       <div *ngIf="showBranch" fxFlex="30%">
         <mat-form-field class="full-width" appearance="outline">
@@ -85,9 +98,13 @@
 
       <div fxFlex="30%">
         <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Cell</mat-label>
+          <mat-label>Phone</mat-label>
           <input matInput placeholder="Enter phone number..." formControlName="phoneCell">
         </mat-form-field>
+        <div *ngIf="submitted && f.phoneCell.errors" class="invalid-feedback">
+          <div *ngIf="f.phoneCell.errors.required">phone is required</div>
+          <div *ngIf="f.phoneCell.errors.pattern">invalid phone number</div>
+      </div>
       </div>
       <div fxFlex="30%">
         <mat-form-field class="full-width" appearance="outline">
@@ -138,7 +155,7 @@
 
       </div>
       <div fxFlex="70%">
-        <button type="submit" mat-raised-button class="btn-md" [disabled]="!userDetailsForm.valid" color="accent">Save</button>&nbsp;
+        <button type="submit" mat-raised-button class="btn-md"  color="accent">Save</button>&nbsp;
         <button routerLink="/admin/user/list" type="button" mat-raised-button class="btn-md" color="warn">Cancel</button>
       </div>
     </div>

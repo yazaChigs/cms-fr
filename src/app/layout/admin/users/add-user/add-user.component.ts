@@ -55,6 +55,7 @@ export class AddUserComponent implements OnInit, AfterViewInit, OnDestroy {
   idFormat = '^[0-9]{2}-[0-9]{6,7}[A-Z]{1}[0-9]{2}$';
   changePass = false;
   showBranch = false;
+  submitted = false;
   // company = JSON.parse(sessionStorage.getItem(StorageKey.COMPANY_DETAIL));
   constructor(
     public userService: UserService,
@@ -248,9 +249,6 @@ export class AddUserComponent implements OnInit, AfterViewInit, OnDestroy {
           Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
         ])
       ),
-      // facility: new FormControl(''),
-      // dateOfBirth: new FormControl(),
-      // age: new FormControl(''),
       gender: new FormControl(),
       phoneCell: new FormControl('',
       Validators.compose([
@@ -271,12 +269,17 @@ export class AddUserComponent implements OnInit, AfterViewInit, OnDestroy {
       userRoles: this.fb.array([], DateUtil.minLength(1))
     });
   }
+  get f() { return this.userDetailsForm.controls; }
 
   selectedTitle(value){
    this.userDetailsForm.get('physician.title').setValue(value);
   }
 
   onSubmitUserDetails(value) {
+    this.submitted = true;
+    if (this.userDetailsForm.invalid) {
+      return;
+    }
     this.userService.saveUser(value).subscribe(
       result => {
         this.snotify.success(

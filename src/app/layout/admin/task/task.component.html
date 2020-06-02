@@ -10,6 +10,52 @@
       <mat-icon aria-label="Add">list</mat-icon>&nbsp; Tasks
     </button>
   </mat-toolbar>
+
+
+<table border="0">
+  <tr>
+    <td>Query No. :</td>
+    <td><b>{{task?.query?.id}}</b></td>
+  </tr>
+  <tr>
+    <td>Task No. :</td>
+    <td><b>{{task?.id}}</b></td>
+  </tr>
+  <tr>
+    <td>Query Type:</td>
+    <td><b>{{task.query?.queryType}}</b></td>
+  </tr>
+  <tr>
+    <td>Category:</td>
+    <td><b>{{task?.query?.category?.name}}</b></td>
+  </tr>
+  <tr>
+    <td>Branch:</td>
+    <td><b>{{task.query?.branch?.branchName}}</b></td>
+  </tr>
+  <tr>
+    <td>Stan No.:</td>
+    <td><b>{{task.query?.stanNo}}</b></td>
+  </tr>
+  <tr>
+    <td>Account No.:</td>
+    <td><b>{{task.query?.accountNumber}}</b></td>
+  </tr>
+  <tr>
+    <td>Description:</td>
+    <td><b>{{task.query?.description}}</b></td>
+  </tr>
+  <tr>
+    <td>Query Details:</td>
+    <td><b>{{task.query?.complaintDetails}}</b></td>
+  </tr>
+  <tr>
+    <td>Date created:</td>
+    <td><b>{{task.query?.dateCreated}}</b></td>
+  </tr>
+</table>
+<mat-divider insert="true"></mat-divider>
+
   <form [formGroup]="taskForm">
   <app-base-form></app-base-form>
   <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
@@ -76,6 +122,9 @@
             <mat-option value="No action taken">No action taken</mat-option>
           </mat-select>
         </mat-form-field>
+        <div *ngIf="f.actionTaken.errors" class="invalid-feedback">
+          <div *ngIf="f.actionTaken.errors.required">Last Name is required</div>
+      </div>
       </div>
     </div>
 
@@ -111,3 +160,4 @@
     </div>
 </form>
 </mat-card>
+<!-- {{taskForm.value | json}} -->

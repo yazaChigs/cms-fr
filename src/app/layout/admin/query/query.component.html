@@ -19,8 +19,11 @@
       <div fxFlex="40%">
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Fullname</mat-label>
-          <input matInput placeholder="Enter Complainants name..." formControlName="fullname" required>
+          <input matInput placeholder="Enter Complainants name..." formControlName="fullname" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.fullname.errors }">
         </mat-form-field>
+        <div *ngIf="submitted && f.fullname.errors" class="invalid-feedback">
+          <div *ngIf="f.fullname.errors.required">Fullame is required</div>
+      </div>
       </div>
 
       <div fxFlex="25%">
@@ -28,12 +31,21 @@
           <mat-label>Phone</mat-label>
           <input matInput placeholder="Enter Complainants Phone..." formControlName="phone" required>
         </mat-form-field>
+        <div>
+          <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+          <p *ngIf=" f.phone.errors.required" class="invalid-feedback"><b>*phone is required</b></p>
+          <p *ngIf="f.phone.touched && f.phone.errors.pattern" class="invalid-feedback"><b>*invalid phone number</b></p>
+      </div>
+    </div>
       </div>
       <div fxFlex="15%">
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Amount</mat-label>
-          <input matInput placeholder="Stan Number" formControlName="amount"  required>
+          <input matInput placeholder="Amount" formControlName="amount"  required>
         </mat-form-field>
+        <div *ngIf="submitted && f.amount.errors" class="invalid-feedback">
+          <div *ngIf="f.amount.errors.required">Amount is required</div>
+      </div>
       </div>
     </div>
 
@@ -42,8 +54,11 @@
       <div fxFlex="30%">
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Account Number</mat-label>
-          <input matInput  formControlName="accountNumber">
+          <input matInput  formControlName="accountNumber" required>
         </mat-form-field>
+        <div *ngIf="submitted && f.accountNumber.errors" class="invalid-feedback">
+          <div *ngIf="f.accountNumber.errors.required">Account Number is required</div>
+      </div>
       </div>
       <div fxFlex="30%">
         <mat-form-field class="full-width" appearance="outline">
@@ -60,6 +75,10 @@
           <mat-label>Stan Number</mat-label>
           <input matInput placeholder="Stan Number" formControlName="stanNo"  required>
         </mat-form-field>
+        <div *ngIf="submitted && f.stanNo.errors" class="invalid-feedback">
+          <div *ngIf="f.stanNo.errors.required">Last Name is required</div>
+          <div *ngIf="f.stanNo.touched && f.stanNo.errors.pattern">Stan Number requirs 6 digits</div>
+      </div>
       </div>
     </div>
 
@@ -91,6 +110,9 @@
             <mat-option value="URGENT">URGENT</mat-option>
           </mat-select>
         </mat-form-field>
+        <div *ngIf="submitted && f.priority.errors" class="invalid-feedback">
+          <div *ngIf="f.priority.errors.required">priority is required</div>
+      </div>
       </div>
       <div fxFlex="30%">
         <mat-form-field class="full-width" appearance="outline">
@@ -100,16 +122,22 @@
             <mat-option value="mobileBanking">Mobile Banking</mat-option>
           </mat-select>
         </mat-form-field>
+        <div *ngIf="submitted && f.queryType.errors" class="invalid-feedback">
+          <div *ngIf="f.queryType.errors.required">Query Type is required</div>
+      </div>
       </div>
       <div fxFlex="30%">
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Category</mat-label>
           <mat-select placeholder="Category" formControlName="category" [compareWith]="compareFn"  required>
             <mat-option *ngFor="let item of categories" [value]="item">
-              {{item.name}}
+              {{item?.name}}
             </mat-option>
           </mat-select>
         </mat-form-field>
+        <div *ngIf="submitted && f.category.errors" class="invalid-feedback">
+          <div *ngIf="f.category.errors.required">Categoty is required</div>
+      </div>
       </div>
       
     </div>
@@ -159,14 +187,14 @@
     <br>
     <br>
     <mat-divider></mat-divider>
-    <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
+    <div  class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
       <div fxFlex="12%">
 
       </div>
-      <div fxFlex="70%">
+      <div fxFlex="70%" *ngIf="editQuery==true">
         <!-- <button type="button" mat-stroked-button class="btn-md"  color="primary" (click)="openUploadDialog(newQueryForm.value.id)">Upload File</button>&nbsp; -->
-        <button type="submit" mat-raised-button class="btn-md" [disabled]="!newQueryForm.valid" color="accent">Save</button>&nbsp;
-        <button routerLink="/admin/user/list" type="button" mat-raised-button class="btn-md" color="warn">Cancel</button>
+        <button type="submit" mat-raised-button class="btn-md"   color="accent">Save</button>&nbsp;
+        <button routerLink="'/query-list'" type="button" mat-raised-button class="btn-md" color="warn">Cancel</button>
       </div>
     </div>
   </form>

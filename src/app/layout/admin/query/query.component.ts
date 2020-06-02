@@ -22,6 +22,7 @@ export class QueryComponent implements OnInit {
 
   newQueryForm: FormGroup;
   util;
+  submitted = false;
   branches: Branch[] = [];
   serverError: any;
   categories: any = []
@@ -35,6 +36,7 @@ export class QueryComponent implements OnInit {
   queryId: number;
   selectedQuery: any = {};
   user: any;
+  editQuery = true;
 
   constructor( private fb: FormBuilder, private snotify: SnotifyService, private service: CrudService,
                private router: Router,  private route: ActivatedRoute, private branchService: BranchService,
@@ -45,9 +47,11 @@ export class QueryComponent implements OnInit {
                 .subscribe(params => {
                   // Defaults to 0 if no query param provided.
                   this.queryId = +params['query'] || null;
+                  this.editQuery = params['editable'] || true;
                 });
                 this.statusKeys = Object.keys(this.status).filter(Number);
                 this.priorityKeys = Object.keys(this.priority).filter(Number);
+                console.log(this.editQuery)
 
                 }
 
@@ -67,7 +71,7 @@ export class QueryComponent implements OnInit {
     dateCreated: new FormControl(),
     version: new FormControl(),
     createdById: new FormControl(),
-    fullname: new FormControl(),
+    fullname: new FormControl('', Validators.required),
     phone: new FormControl('',
     Validators.compose([
       Validators.required,
@@ -90,15 +94,20 @@ export class QueryComponent implements OnInit {
     complaintDetails: new FormControl(),
     description: new FormControl(),
     phoneHome: new FormControl(),
-    amount: new FormControl(),
+    amount: new FormControl('', Validators.required),
     actionTaken: new FormControl(),
     phoneBusiness: new FormControl(),
     fileName: new FormControl(),
     });
   }
+  get f() { return this.newQueryForm.controls; }
 
   onSubmitUserDetails(value) {
     // console.log(value);
+    this.submitted = true;
+    if (this.newQueryForm.invalid) {
+      return;
+    }
     value.status = 'WAITING';
     this.service.save(value, '/query/save').subscribe(
       result => {

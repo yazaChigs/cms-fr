@@ -18,6 +18,7 @@ export class BranchComponent implements OnInit {
   branchForm: FormGroup;
   util;
   branchToEdit: Branch;
+  submitted = false;
 
   constructor(private router: Router, private fb: FormBuilder, private service: BranchService,  private snotify: SnotifyService) { }
 
@@ -36,11 +37,7 @@ export class BranchComponent implements OnInit {
       createdById: new FormControl(),
       branchName: new FormControl(),
       address: new FormControl(),
-      phoneNumber: new FormControl('',
-      Validators.compose([
-        Validators.required,
-        Validators.pattern('^[0-9]{10}$')
-      ])),
+      phoneNumber: new FormControl(),
       officePhone: new FormControl(),
       });
     }
@@ -64,8 +61,13 @@ getBranchToEdit() {
   );
   this.populateForm(this.branchToEdit);
 }
+get f() { return this.branchForm.controls; }
 
     submitValues(value) {
+      this.submitted = true;
+      if (this.branchForm.invalid) {
+      return;
+    }
       this.service.save(value).subscribe(
         result => {
           this.snotify.success(

@@ -36,10 +36,26 @@
     <td>Date created:</td>
     <td><b>{{data.value.dateCreated}}</b></td>
   </tr>
+  <tr>
+    <td>Assigned to:</td>
+    <td><b>{{task.assignee?.displayName}}</b></td>
+  </tr>
+  <tr>
+    <td>Status:</td>
+    <td><b>{{task.status}}</b></td>
+  </tr>
+  <tr>
+    <td>Priority:</td>
+    <td><b>{{task.priority}}</b></td>
+  </tr>
+  <tr>
+    <td>Action Taken:</td>
+    <td><b>{{task.actionTaken}}</b></td>
+  </tr>
 </table>
 <mat-divider insert="true"></mat-divider>
 
-<form [formGroup]="taskForm">
+<!-- <form [formGroup]="taskForm">
   <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="right" fxLayoutGap="12px" fxLayoutGap.xs="0">
     <div fxFlex="40%">
       <mat-form-field class="full-width" appearance="outline">
@@ -65,9 +81,9 @@
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Priority</mat-label>
           <mat-select placeholder="Priority" formControlName="priority"  >
-            <!-- <mat-option *ngFor="let key of priorityKeys" [value]="priority[key]">
+            <mat-option *ngFor="let key of priorityKeys" [value]="priority[key]">
               {{ priority[key] }}
-            </mat-option> -->
+            </mat-option> 
             <mat-option value="NORMAL">NORMAL</mat-option>
             <mat-option value="IMMEDIATE">IMMEDIATE</mat-option>
             <mat-option value="URGENT">URGENT</mat-option>
@@ -78,9 +94,10 @@
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Status</mat-label>
           <mat-select placeholder="Status" formControlName="status"  disabled>
-            <!-- <mat-option *ngFor="let key of statusKeys" [value]="status[key]">
+             
+            <mat-option *ngFor="let key of statusKeys" [value]="status[key]">
               {{ status[key] }}
-            </mat-option> -->
+            </mat-option> 
             <mat-option value="WAITING">WAITING</mat-option>
             <mat-option value="PENDING">PENDING</mat-option>
             <mat-option value="RESOLVED">RESOLVED</mat-option>
@@ -96,7 +113,7 @@
         <textarea matInput placeholder="Managers Notes" formControlName="managersNotes" ></textarea>
       </mat-form-field>
     </div>
-  </div>
+  </div> -->
   <!-- <mat-divider insert="true"></mat-divider> -->
   <!-- branch list -->
 
@@ -104,9 +121,9 @@
       <div fxFlex="20%">
       </div>
       <div fxFlex="40%">
-        <button *ngIf="task==null" mat-raised-button class="btn-md" [disabled]="!taskForm.valid" color="primary" (click)="submitValues(taskForm.value)">Save</button>&nbsp;
+        <!-- <button *ngIf="task==null" mat-raised-button class="btn-md" [disabled]="!taskForm.valid" color="primary" (click)="submitValues(taskForm.value)">Save</button>&nbsp; -->
         <button mat-raised-button  routerLinkActive="router-link-active" (click)="onNoClick()" class="btn-md" color="warn">Cancel</button>
       </div>
     </div>
-</form>
+<!-- </form> -->
 <!-- {{taskForm.value | json}} -->

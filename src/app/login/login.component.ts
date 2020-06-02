@@ -9,6 +9,8 @@ import { Global } from '../global';
 import { StorageKey } from '../util/key';
 import { UserRoleService } from '../shared/config/service/admin/user-role.service';
 import { NgxPermissionsService } from 'ngx-permissions';
+import { SnotifyService } from 'ng-snotify';
+import { NotifyUtil } from '../util/notifyutil';
 
 @Component({
   selector: 'app-login',
@@ -23,18 +25,20 @@ export class LoginComponent implements OnInit {
   password: string;
   userName: string;
   hide = true;
+  util;
   theme: string;
   branchId = localStorage.getItem(StorageKey.BRANCH_ID);
   roles: string[];
 
   constructor(private router: Router, public global: Global,
               private authService: AuthService, private token: TokenStorage,
-              private roleService: UserRoleService,
+              private roleService: UserRoleService, private snotify: SnotifyService,
   ) {
   }
 
 
   ngOnInit() {
+    this.util = new NotifyUtil(this.snotify);
     localStorage.removeItem('AuthToken');
     sessionStorage.removeItem(StorageKey.BRANCH_DETAIL);
     localStorage.removeItem(StorageKey.BRANCH_ID);
@@ -56,8 +60,12 @@ export class LoginComponent implements OnInit {
             }
             localStorage.setItem(StorageKey.USER, JSON.stringify(data));
         }
+        this.snotify.success('Login Successful', 'Succes', this.util.getNotifyConfig())
       },
        error => {
+        console.log(error.error);
+        this.snotify.error(error.error.message , 'error', this.util.getNotifyConfig());
+
       },
       () => {
         this.getRoles();
@@ -77,7 +85,6 @@ export class LoginComponent implements OnInit {
       result => {
         const allRoles = JSON.stringify(result);
         sessionStorage.setItem(StorageKey.GRANTED_AUTHORITIES, allRoles);
-        console.log(allRoles);
       },
       error => {
         console.log(error);

@@ -104,8 +104,6 @@ export class QueryListComponent implements OnInit {
 
    editQuery(id) {
     this.router.navigate(['/queries'], { queryParams: { query: id } });
-    // this.service.getItem(id).subscribe
-    // this.router.navigate(['queries']);
    }
 
   deleteQuery(id: number, index: number) {

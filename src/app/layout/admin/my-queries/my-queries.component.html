@@ -1,0 +1,116 @@
+<mat-card class="border_accent card-padding border_radius">
+  <mat-toolbar color="primary">
+    <a routerLink="/query-list" mat-icon-button>
+        <mat-icon aria-label="Back">arrow_back</mat-icon>
+    </a>
+    <span class="fill-remaining-space"></span>
+    <span>My Queries</span>
+    <span class="fill-remaining-space"></span>
+    <!-- <button mat-raised-button [routerLink]="['/query-list']" routerLinkActive="router-link-active" color="accent">
+      <mat-icon aria-label="Add">list</mat-icon>&nbsp; queries
+    </button> -->
+  </mat-toolbar>
+
+  <ngx-datatable id="resolved" class="material ngx-table-card" [rows]="myQueries" [columnMode]="'force'"
+      [headerHeight]="50"
+      [footerHeight]="50"
+      [rowHeight]="'auto'"
+      [limit]="10">
+        <ngx-datatable-column>
+            <ng-template let-column="column" ngx-datatable-header-template>
+                Query No.
+            </ng-template>
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                 {{row.id}}
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column>
+          <ng-template let-column="column" ngx-datatable-header-template>
+              Stan No.
+          </ng-template>
+          <ng-template let-row="row" ngx-datatable-cell-template>
+               {{row.stanNo}}
+          </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column>
+        <ng-template let-column="column" ngx-datatable-header-template>
+            Amount
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+             {{row.amount}}
+        </ng-template>
+    </ngx-datatable-column>
+        <ngx-datatable-column>
+          <ng-template let-column="column" ngx-datatable-header-template>
+              Query Type
+          </ng-template>
+          <ng-template let-row="row" ngx-datatable-cell-template>
+               {{row.queryType}}
+          </ng-template>
+      </ngx-datatable-column>
+        <ngx-datatable-column>
+            <ng-template let-column="column" ngx-datatable-header-template>
+               Category
+            </ng-template>
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                {{row.category?.name}}
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column>
+          <ng-template let-column="column" ngx-datatable-header-template>
+             Status
+          </ng-template>
+          <ng-template let-row="row" ngx-datatable-cell-template>
+              {{row.status}}
+          </ng-template>
+      </ngx-datatable-column>
+      <ngx-datatable-column>
+        <ng-template let-column="column" ngx-datatable-header-template>
+           Action Taken
+        </ng-template>
+        <ng-template let-row="row" ngx-datatable-cell-template>
+            {{row.actionTaken}}
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column>
+      <ng-template let-column="column" ngx-datatable-header-template>
+         Priority
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+          {{row.priority}}
+      </ng-template>
+  </ngx-datatable-column>
+        <ngx-datatable-column>
+          <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+              <div class="button-row">
+                  <button mat-icon-button (click)="editQuery(row.id)">
+                      <mat-icon>border_color</mat-icon>
+                    </button>
+                    <!-- <button mat-icon-button color="warn" (click)="deleteQuery(row.id, rowIndex)">
+                      <mat-icon>delete</mat-icon>
+                    </button> -->
+              </div>
+          </ng-template>
+      </ngx-datatable-column>
+    </ngx-datatable>
+
+    <div class="container " fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+      <div fxFlex="40%">
+        <div>
+          <div>
+            <div style="display: block">
+              <canvas baseChart style="height: 310px;"
+                [datasets]="barChartData"
+                [labels]="barChartLabels"
+                [options]="barChartOptions"
+                [plugins]="barChartPlugins"
+                [legend]="barChartLegend"
+                [chartType]="barChartType">
+              </canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </mat-card>
